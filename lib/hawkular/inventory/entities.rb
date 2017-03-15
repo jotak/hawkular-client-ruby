@@ -66,6 +66,8 @@ module Hawkular::Inventory
       super(res_hash)
       if res_hash.key? :resourceTypePath
         @type_path = res_hash[:resourceTypePath]
+      elsif res_hash.key? 'resourceTypePath'
+        @type_path = res_hash['resourceTypePath']
       else
         @type = res_hash['type']
         @type_path = res_hash['type']['path']
@@ -226,6 +228,18 @@ module Hawkular::Inventory
       ret += "/mt;#{@metric_type_id}" unless @metric_type_id.nil?
       ret += "/m;#{@metric_id}" unless @metric_id.nil?
       ret += resources_chunk.to_s
+      ret
+    end
+
+    def to_metric_name
+      fail 'Missing feed_id' if @feed_id.nil?
+      if @resource_type_id.nil? && @metric_type_id.nil? && (@resource_ids.nil? || @resource_ids.empty?)
+        fail 'Expecting either resource type, metric type or resource'
+      end
+      ret = "inventory.#{@feed_id}"
+      ret += ".rt.#{@resource_type_id}" unless @resource_type_id.nil?
+      ret += ".mt.#{@metric_type_id}" unless @metric_type_id.nil?
+      ret += ".r.#{@resource_ids[0]}" unless @resource_ids.nil?
       ret
     end
 
