@@ -15,8 +15,6 @@ http_interactions:
       - hawkular-client-ruby
       Content-Type:
       - application/json
-      Host:
-      - localhost:8080
   response:
     status:
       code: 200
@@ -31,20 +29,20 @@ http_interactions:
       Content-Type:
       - application/json
       Content-Length:
-      - '133'
+      - '153'
       Date:
-      - Thu, 13 Oct 2016 03:20:55 GMT
+      - Tue, 21 Mar 2017 18:17:28 GMT
     body:
       encoding: UTF-8
-      string: '{"MetricsService":"STARTED","Implementation-Version":"0.20.1.Final","Built-From-Git-SHA1":"f23946235446d3425db31d262b47b4f950ddabb3"}'
+      string: '{"MetricsService":"STARTED","Implementation-Version":"0.26.0-SNAPSHOT","Built-From-Git-SHA1":"03b416bced2eaff0f418e7950c4750d272a06693","Cassandra":"up"}'
     http_version: 
-  recorded_at: Thu, 13 Oct 2016 03:20:55 GMT
+  recorded_at: Tue, 21 Mar 2017 18:17:28 GMT
 - request:
     method: post
     uri: http://jdoe:password@localhost:8080/hawkular/metrics/counters/<%= id %>/raw
     body:
       encoding: UTF-8
-      string: '[{"value":4,"timestamp":1476328855754}]'
+      string: '[{"value":4,"timestamp":1490120248978}]'
     headers:
       Accept:
       - application/json
@@ -56,8 +54,6 @@ http_interactions:
       - application/json
       Content-Length:
       - '39'
-      Host:
-      - localhost:8080
   response:
     status:
       code: 400
@@ -74,7 +70,7 @@ http_interactions:
       Pragma:
       - no-cache
       Date:
-      - Thu, 13 Oct 2016 03:20:55 GMT
+      - Tue, 21 Mar 2017 18:17:28 GMT
       Connection:
       - keep-alive
       Content-Type:
@@ -85,5 +81,5 @@ http_interactions:
       encoding: UTF-8
       string: '{"errorMsg":"Tenant is not specified. Use ''Hawkular-Tenant'' header."}'
     http_version: 
-  recorded_at: Thu, 13 Oct 2016 03:20:55 GMT
+  recorded_at: Tue, 21 Mar 2017 18:17:28 GMT
 recorded_with: VCR 3.0.3

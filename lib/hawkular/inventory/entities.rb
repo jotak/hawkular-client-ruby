@@ -1,5 +1,9 @@
+require 'hawkular/client_utils'
+
 # It contains class definitions that are used by the inventory REST client
 module Hawkular::Inventory
+  include Hawkular::ClientUtils
+
   # A Basic inventory entity with id, name, path and optional properties
   class BaseEntity
     # @return [String] Full path of the entity
@@ -107,13 +111,13 @@ module Hawkular::Inventory
     # @return [String] metric id used in Hawkular Metrics
     attr_reader :hawkular_metric_id
 
-    def initialize(metric_hash)
+    def initialize(metric_hash, metric_type_hash)
       super(metric_hash)
-      @type = metric_hash['type']['type']
-      @type_path = metric_hash['type']['path']
-      @type_id = metric_hash['type']['id']
-      @unit = metric_hash['type']['unit']
-      @collection_interval = metric_hash['type']['collectionInterval']
+      @type = metric_type_hash['type']
+      @type_path = metric_hash['metricTypePath']
+      @type_id = metric_type_hash['id']
+      @unit = metric_type_hash['unit']
+      @collection_interval = metric_hash['collectionInterval'] || metric_type_hash['collectionInterval']
       @hawkular_metric_id = @properties.key?('hawkular-metric-id') ? @properties['hawkular-metric-id'] : @id
     end
   end
@@ -183,15 +187,56 @@ module Hawkular::Inventory
       CanonicalPath.new(path_to_h path)
     end
 
+    # def self.hawk_escape(url_part)
+    #   return url_part.to_s if url_part.is_a?(Numeric)
+    #   url_part
+    #     .to_s
+    #     .dup
+    #     .gsub('%', '%25')
+    #     .gsub(' ', '%20')
+    #     .gsub('[', '%5b')
+    #     .gsub(']', '%5d')
+    #     .gsub('|', '%7c')
+    #     .gsub('(', '%28')
+    #     .gsub(')', '%29')
+    #     .gsub('/', '%2f')
+    # end
+    #
+    # def self.hawk_escape_id(url_part)
+    #   hawk_escape(url_part)
+    #     .gsub('=', '%3d')
+    #     .gsub(';', '%3b')
+    # end
+
+    def self.from_feed(feed_id)
+      CanonicalPath.new(feed_id: hawk_escape_id(feed_id))
+    end
+
     # Move up to the parent path of the resource. resource_ids set to empty array when there is no parent.
     # @return CanonicalPath corresponding to the direct ancestor of the resource represented by this path object.
     def up
       hash = to_h
-      if hash[:resource_ids].nil?
+      if @resource_ids.nil? || (@resource_ids.empty?)
         hash[:resource_ids] = []
       else
-        hash[:resource_ids].pop
+        hash[:resource_ids] = @resource_ids.take(@resource_ids.length - 1)
       end
+      CanonicalPath.new(hash)
+    end
+
+    # Add resource down to the current path
+    # @return a new CanonicalPath based on the current one
+    def down(resource)
+      hash = to_h
+      hash[:resource_ids] = (@resource_ids || []) << hawk_escape_id(resource)
+      CanonicalPath.new(hash)
+    end
+
+    # Set resource type to the current path
+    # @return a new CanonicalPath based on the current one
+    def rt(resource_type)
+      hash = to_h
+      hash[:@resource_type_id] = hawk_escape_id(resource_type)
       CanonicalPath.new(hash)
     end
 

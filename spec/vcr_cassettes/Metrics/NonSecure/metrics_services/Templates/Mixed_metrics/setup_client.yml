@@ -17,8 +17,6 @@ http_interactions:
       - hawkular
       Content-Type:
       - application/json
-      Host:
-      - localhost:8080
   response:
     status:
       code: 200
@@ -33,12 +31,12 @@ http_interactions:
       Content-Type:
       - application/json
       Content-Length:
-      - '133'
+      - '153'
       Date:
-      - Thu, 13 Oct 2016 03:22:22 GMT
+      - Tue, 21 Mar 2017 18:17:28 GMT
     body:
       encoding: UTF-8
-      string: '{"MetricsService":"STARTED","Implementation-Version":"0.20.1.Final","Built-From-Git-SHA1":"f23946235446d3425db31d262b47b4f950ddabb3"}'
+      string: '{"MetricsService":"STARTED","Implementation-Version":"0.26.0-SNAPSHOT","Built-From-Git-SHA1":"03b416bced2eaff0f418e7950c4750d272a06693","Cassandra":"up"}'
     http_version: 
-  recorded_at: Thu, 13 Oct 2016 03:22:22 GMT
+  recorded_at: Tue, 21 Mar 2017 18:17:28 GMT
 recorded_with: VCR 3.0.3

@@ -5,116 +5,48 @@ http_interactions:
     uri: http://localhost:8080/hawkular/metrics/gauges/<%= id %>/data
     body:
       encoding: UTF-8
-      string: '[{"value":3.1415926,"timestamp":1467304297911}]'
+      string: '[{"value":3.1415926,"timestamp":1490120248926}]'
     headers:
       Accept:
       - application/json
       Accept-Encoding:
-      - gzip, deflate
+      - identity
+      User-Agent:
+      - hawkular-client-ruby
       Hawkular-Tenant:
-      - vcr-test-tenant-123
+      - <%= vcr_test_tenant %>
       Content-Type:
       - application/json
       Content-Length:
       - '47'
-      User-Agent:
-      - Ruby
   response:
     status:
-      code: 200
-      message: OK
+      code: 401
+      message: Unauthorized
     headers:
-      Connection:
-      - keep-alive
-      X-Powered-By:
-      - Undertow/1
-      Server:
-      - WildFly/9
-      Content-Length:
+      Expires:
       - '0'
-      Date:
-      - Thu, 30 Jun 2016 16:31:37 GMT
-    body:
-      encoding: UTF-8
-      string: ''
-    http_version: 
-  recorded_at: Thu, 30 Jun 2016 16:31:37 GMT
-- request:
-    method: get
-    uri: http://localhost:8080/hawkular/metrics/gauges/<%= id %>/data/
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept:
-      - application/json
-      Accept-Encoding:
-      - gzip, deflate
-      Hawkular-Tenant:
-      - vcr-test-tenant-123
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Connection:
-      - keep-alive
+      Cache-Control:
+      - no-cache, no-store, must-revalidate
       X-Powered-By:
       - Undertow/1
       Server:
-      - WildFly/9
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '47'
+      - WildFly/10
+      Pragma:
+      - no-cache
       Date:
-      - Thu, 30 Jun 2016 16:31:37 GMT
-    body:
-      encoding: UTF-8
-      string: '[{"timestamp":1467304297911,"value":3.1415926}]'
-    http_version: 
-  recorded_at: Thu, 30 Jun 2016 16:31:37 GMT
-- request:
-    method: get
-    uri: http://localhost:8080/hawkular/metrics/gauges/<%= id %>
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept:
-      - application/json
-      Accept-Encoding:
-      - gzip, deflate
-      Hawkular-Tenant:
-      - vcr-test-tenant-123
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
+      - Tue, 21 Mar 2017 18:17:28 GMT
       Connection:
       - keep-alive
-      X-Powered-By:
-      - Undertow/1
-      Server:
-      - WildFly/9
+      Www-Authenticate:
+      - Basic realm="ApplicationRealm"
       Content-Type:
-      - application/json
+      - text/html;charset=UTF-8
       Content-Length:
-      - '93'
-      Date:
-      - Thu, 30 Jun 2016 16:31:37 GMT
+      - '71'
     body:
       encoding: UTF-8
-      string: '{"id":"<%= id %>","type":"gauge","tenantId":"vcr-test-tenant-123"}'
+      string: "<html><head><title>Error</title></head><body>Unauthorized</body></html>"
     http_version: 
-  recorded_at: Thu, 30 Jun 2016 16:31:37 GMT
-recorded_with: VCR 3.0.1
+  recorded_at: Tue, 21 Mar 2017 18:17:28 GMT
+recorded_with: VCR 3.0.3

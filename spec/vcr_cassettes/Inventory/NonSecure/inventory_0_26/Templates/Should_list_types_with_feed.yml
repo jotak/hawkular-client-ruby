@@ -1,0 +1,69 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://<%= super_secret_username %>:<%= super_secret_password %>@localhost:8080/hawkular/metrics/strings/raw/query
+    body:
+      encoding: UTF-8
+      string: '{"fromEarliest":true,"limit":1,"order":"DESC","tags":"module:inventory,type:rt,feed:<%= feed_uuid %>"}'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - identity
+      User-Agent:
+      - hawkular-client-ruby
+      Hawkular-Tenant:
+      - hawkular
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '122'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Expires:
+      - '0'
+      Cache-Control:
+      - no-cache, no-store, must-revalidate
+      X-Powered-By:
+      - Undertow/1
+      Server:
+      - WildFly/10
+      Pragma:
+      - no-cache
+      Date:
+      - Tue, 21 Mar 2017 18:17:27 GMT
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '10039'
+    body:
+      encoding: UTF-8
+      string: '[{"id":"inventory.<%= feed_uuid %>.rt.Transaction
+        Manager","data":[{"timestamp":1490101278938,"value":"H4sIAAAAAAAAAHXMzQmAMAwG0FUkZyfoDt5cILShBjQpaXqQ4u5W8erx8f108LMQBDCq2izS+nCGhI4QOhTTQuZMdeiagdPoroZSMTqrTAsKZrIxETzoN9TmWVny9yJRj0+DceM9GcnLG1L+jfGSAAAA"}]},{"id":"inventory.<%= feed_uuid %>.rt.Platform_File
+        Store","data":[{"timestamp":1490101276287,"value":"H4sIAAAAAAAAAFXMMQqAMAwF0KtI5p7AAzgLuktpYw20TYlxEPHutuLi+D7//wv0LAg9CO58iMO50YC3aqG/oAgXFCXcq24D5Gt3jFZXlrQMFLGblKVNsk3t6JfxoYEph2+cHadPlW6j6AXzywcbgLxdiQAAAA=="}]},{"id":"inventory.<%= feed_uuid %>.rt.Socket
+        Binding","data":[{"timestamp":1490101279041,"value":"H4sIAAAAAAAAAH1Qy2oDMQz8laCzv2BvLfTQQ0IhvZUejK1sRL3SopUDy+J/r52EPEqakzTDSDPSAjaPCB0oTpI14GeDDqI3D90Co8qIaoRTRcUBxardSvhBW70SR+K+qtkP+IiXbL209jTLQYYzqjDsKUVFbjbN7o2NbIbua3nuHoR31Gf1RsLbsMfBXyJwTumZrYODTxnb7s0p87E4eGdD3fnQqGvv4EPUKnUsDtY5GQU/2eol1uhTjfWAu9Wd5/8QNYdKwn+Ouf9NKd+l/AJbvJ8BpwEAAA=="}]},{"id":"inventory.<%= feed_uuid %>.rt.JMS
+        Topic","data":[{"timestamp":1490101278952,"value":"H4sIAAAAAAAAAF3LQQqAIBCF4avErD2BRwha5QVEBxtIR0ZdhHT3LFy1/B7/61CvjKBBsHATh+alAm+rBd0hC2eUSliGbgXkR7tu+2I4kxthshF/E7camFKYj+Q4Tg26g04vmD4+Q7/e334AAAA="}]},{"id":"inventory.<%= feed_uuid %>.rt.Stateful
+        Session EJB","data":[{"timestamp":1490101278912,"value":"H4sIAAAAAAAAAHXMPQ6DMAwF4Ksgz5yAsVKXrvQCUfIAS2BHjjMgxN0bKlbGT+/nIN8zaCBD0WoR34s9peCBhoOyaYY5ozSdPXFq3dGDY6prN6IUVunen1fbSNjwnGr1WVnm+0eibrca48JrMsifP9RZoR2UAAAA"}]},{"id":"inventory.<%= feed_uuid %>.rt.JGroups","data":[{"timestamp":1490101279062,"value":"H4sIAAAAAAAAAFXKwQ2AIAxA0V16ZgIWMPHsAgQabKItKeVgiLuLhovH9/M72FUQPChWaRpxe+kgBQvgOxSVgmqEdeh2QGm866LSSh0bhxN/QZplIc7z5ijn1GDc6UiK/PEBU9WDIHoAAAA="}]},{"id":"inventory.<%= feed_uuid %>.rt.JGroups
+        Channel","data":[{"timestamp":1490101279117,"value":"H4sIAAAAAAAAAH2QQWoDMQxFr2K09glmV0IJKbQEUrIJWbgedUbgkYxsJ4TBd6+nDaWBNMsnf+t9e4Z8iQgdKCYp6vF9QQu9yw66GaJKRM2EqVG1QH3LvqxVSkxmNTpmDC3ObsK7B1LyIMTD9TZ7ma7U0I8UekVeRIvwmTPlC3SH+bHfC3/SUNRlEt75ESf324FLCI+0Fk4uFFx2r0JJGdW8/ZS/QQubrXnqW7vUzH/BwvcjzStOH6hppGj2hOcWuj9vRpWA/9S+/YVaj7V+AZaWbFGTAQAA"}]},{"id":"inventory.<%= feed_uuid %>.rt.Remote
+        Destination Outbound Socket Binding","data":[{"timestamp":1490101278965,"value":"H4sIAAAAAAAAAJWOwQrCMAyGX2XkvCfYURS8KepNPNQ2zmCXjC4Vxui7204RPCh4Sj5I/v+bQMceoYGAg8Rg8VCwBmfUQDNBH6THoIRDplQDuXy7w04UqyUOSmyUhKtN1LNEdtVe7A21WhA74jYnsenw3x+J2kpZn51spXtRRnsl7wJy0SuaK1bSEZrj9NvaCl+ojWEu39srduatx9H7X7U13I2PWLLXMmhOm0cNWwmF5pGvgnj8UvVpntIppQcLvWTofQEAAA=="}]},{"id":"inventory.<%= feed_uuid %>.rt.Singleton
+        EJB","data":[{"timestamp":1490101279053,"value":"H4sIAAAAAAAAAG3LMQqAMAyF4atI5p6go+DiqhcobdCCTUqMg4h3N0pHx+/nvQv0rAgeBHc+JOL80kEKGsBfUIUrimbcTbeDnGw7ZVo2VKZuGHsbUyj4k/nQha21J0UuTca45i0J0scHJB8Ml4YAAAA="}]},{"id":"inventory.<%= feed_uuid %>.rt.Message
+        Driven EJB","data":[{"timestamp":1490101278996,"value":"H4sIAAAAAAAAAHXMPQqEMBAF4KvI1J7ActFGsPMCIXnEgXUmTKIg4t3Niu2WH+/npHIkUEeGrJt5zD+2FFxx1J2UTBOsMHLV1RKH2p2Qs4toeuMd0gzjpy7ErfiX6VaissT3Q7yuryr9wt9gkIc3ZbftiZAAAAA="}]},{"id":"inventory.<%= feed_uuid %>.rt.Stateless
+        Session EJB","data":[{"timestamp":1490101279137,"value":"H4sIAAAAAAAAAH3MMQqEQAwF0KtIak9gubDNtnqBYebjBjQZMrFYZO9uFGubwOP/n538V0EDGZpuljGd7KkkTzTsVE0rzBkt9O+JS3RHT44FrXVjHFbp3p9XjCSteIh181lZ5vuTZF1vBfOXl2KQiwcIRiZllgAAAA=="}]},{"id":"inventory.<%= feed_uuid %>.rt.Platform_Operating
+        System","data":[{"timestamp":1490101276248,"value":"H4sIAAAAAAAAAH2OywrCMBBFf6XMul/QvQsXolB3IhLSaRtIZko6EUrJvzuBIgra5ZnHPXcFWSaEBiLOnKLFa8EaOiMGmhWmyBNGcTgr5Rpcp7cXb6TnGB5n3RlxNFTtMgsGfSQTStyPDScZWCdbEFkOGyna0fkuIhVncR9InCzQ3Nb9Kpapd0MqLqbWjhjMuwQl7/e0NTyNT1iyT0YLEFbHkvkBehPZ4x/Rd++c7zm/AFZ8OvZQAQAA"}]},{"id":"inventory.<%= feed_uuid %>.rt.Datasource","data":[{"timestamp":1490101278861,"value":"H4sIAAAAAAAAAH1RQWrDMBD8itmzXuBrnENLCaFpTqEHVd46AnnXrKSUYPz3SsSxXZfktjM7mmFHPYRrh1CCoOcoBj8yVFDroKHsoRPuUIJFn9CgwNZJW6XlTZ2UpFtccxxDw5aa8Q0ZbkeUoDlbVwtSts8xWwo2XKE89c9TDdO3baLoYJkO5oytnuIpOvcsVsFFu4jZe8NEaLJHcXx/S74rQkEl9oJS7MbDFmjabZz2fl7eoFqUMCvWlIIt6S+H+aT7pOB1V73cE+dZwdGjjA1Po4J9MvphyRbTqOCAJkqqsqi41Tb1+49Ry2P3i5If8Kk3YYcPyv/7l8PwOQy/s9J23U8CAAA="}]},{"id":"inventory.<%= feed_uuid %>.rt.JDBC
+        Driver","data":[{"timestamp":1490101279081,"value":"H4sIAAAAAAAAAH2QQQqDMBBFryKzzgnctbWbQruxi0LpIsSpBmJGxkQQyd0b0YpS6vIlP//NZADXNwgpMLbkWeF9RAGFdBLSARqmBtlpbCMFAbqI2Ut2PCUZ6w45Rq2s8eeQvCtJ23J+ZRXVM0VUlTYFox0Fo+hsnXY9pM9h36vIvnXpWTpNNlcV1nLxW2/MnlZAJ43HsXsaMjkZ2cb2LQq4UuENJrdpqzWJb3S+W5OAxyHJ8qV0TdHNZPDPAtv/COEVwgcdnmBclQEAAA=="}]},{"id":"inventory.<%= feed_uuid %>.rt.ModCluster","data":[{"timestamp":1490101279072,"value":"H4sIAAAAAAAAAH2PwQrCMAyGX0Vy7hPspuLR07yJh9LGWeySkaWDMfrutiKKwrzlT/78X7KAzgNCA4IjJ3F4qtKAt2qhWWAQHlA04FhUNhB88R7Z72MaFaU4yfb42+OkHQfqXjvkuH+pIt0tRC9INb5iDqRBZ2jOy3+qY7qGLonVwNS6G/b2jacU4z+sgcnGhDV7z0TolKVEfmoDWz9V5Iiblt0ddbML5J/r66OSKxxx5bjvX3O+5PwAjfmOHW8BAAA="}]},{"id":"inventory.<%= feed_uuid %>.rt.JMS
+        Queue","data":[{"timestamp":1490101279010,"value":"H4sIAAAAAAAAAKtWKqksSFWyUipKLc4vLUpODQFxdZRSEksSlayqlQqK8gtSi0oyU4uBvFodpcwUoFov32CFwNLUUpDCvMTcVDSh/NKS9PzMvHSojrzk/FwoD8hNzsjMSSlKzQNzATM2wsF+AAAA"}]},{"id":"inventory.<%= feed_uuid %>.rt.WildFly
+        Server","data":[{"timestamp":1490101279031,"value":"H4sIAAAAAAAAAO1WUW/TMBD+K5afXYnnvqBBhyhiBbXbEEITcuNrY8mxg33eVE38d85x2qRdthZUCR54SfydL/c5d9/ZfuS4qYGPuYfgoi/gOkHBlUTJx4+89q4GjxoCoZ+Ca0W+X7RR78yGLcDfgydvKysYsruIa6ftuv3WFq5qEcGiJHcPNtEkEona2YZ+/O3x5QVMoDZu0xHv8KmEBI9R6CCXBlgOXYHFHt3Q3PmoL+2zzENT5yP+MJl3VBmcL/gcjJOqi7/DJ4skhb+0qHFzXCG19ESD4JOgwo7VRmNeYhT8XpoIKaxUZBw5azYJtV2ydM6k7oBQeF0nwSbZl4AleEYPFhrps1C6aBQLKD0ybZmP1hIFq5wCdjG5ms6+f5p9/MoeSrBMI6PuS66hib2S0eBtXgdfSRNSQ3r4EbUH+rfGQiuNAUZF9JQcHGXaUeHsSq+H1ntSTArqnYGn6Tus9d0p5c4/P6TiwblzKi3ECvboMj4fxaKMqNyD7Uh6ln9U0KgrIMeeOnST+H0xX2evJNoApCcVGDomjXEPTBao74GR1UKR/Js55aW2T0X2alC0rdCPtdQi90+vo5awbRJQTK6wabKc8td/R+GLGGqwvR2tM/xXwHMKOGcBbqw6uAf0LKf3+p34rTLkPTbm68qiKKGSf1KLWV5x8xL8s3cqFsha6x4U/BZ8yLXZjgSftyfKFZ0oaY/rQ8HzDYwtUGKjzD4UW6F203tY8Jub6SRlM70Ef+8qunFQEQt0nhJ0aBB8lk617Q/txunLgG1ldkPB37hIXBeKChAosQdY8GlVRUzXHJrrxmS37K2zSFKju+V4H3ayGirPgLZ+AZFDo3b4CgAA"}]},{"id":"inventory.<%= feed_uuid %>.rt.Messaging
+        Server","data":[{"timestamp":1490101279020,"value":"H4sIAAAAAAAAAG3LTQqAIBAF4KvErDtBd2hVFxB9mJCOjBaEdPemcNnyez+N6pVBEwkKH2KxvhzJmWpoapSFM6QGFNU9UnC6nVGK8SH5YYGcEN0nE/Hf8FE9a9L/yXLsUtot7E6QPj7wz1gDjAAAAA=="}]},{"id":"inventory.<%= feed_uuid %>.rt.Platform_Memory","data":[{"timestamp":1490101276200,"value":"H4sIAAAAAAAAAD3MQQqAIBCF4bvMuhN0h6BF+xCdTHAcGaeFSHfPQlp+8L/XQGtGmEGw8CUWt5cTOKMG5gZZOKNowNJ1TxBcb9do9GChfUFiqT1Pht6T33yp55D8GCXLNNRpzxCdYPr4AOEFw8eBAAAA"}]},{"id":"inventory.<%= feed_uuid %>.rt.Platform_Processor","data":[{"timestamp":1490101276224,"value":"H4sIAAAAAAAAAE3MMQ6AIBAEwL9czQt4BYW9IXAiiXDkOApD/LtgKCxns7sd5C4IGhgrNXa4TSrwVizoDoWpIEvEOvQoiH50zWXlIE67YXJYK/FYZJvmzz+iJoFiDmuaHaWlQXfGyzPmjy9QN7gHhwAAAA=="}]},{"id":"inventory.<%= feed_uuid %>.rt.Deployment","data":[{"timestamp":1490101278923,"value":"H4sIAAAAAAAAAK2PMQrDMAxF76I5J/DcE5R2Kh2MLVJDLBlHKQTju9cOhpgMbYaO7/P1H0oga0BQEHHmJRq8VRzAatGgEoTIAaM4nAvlAZwt3QuGiVePJKVJ2uMx40VGdjS2GzLsGxU0LzfZiFTn67gWx7Rp1SN9F1/Rbppd2yVnpQV/ajy/sZc0/p/iTsdPuuS85pnzBzuk/tnCAQAA"}]},{"id":"inventory.<%= feed_uuid %>.rt.Infinispan
+        Cache Container","data":[{"timestamp":1490101279098,"value":"H4sIAAAAAAAAAIWQMWoEMQxFr2JU+wTThSHFNmmSLqQQtjJr8EiDLAeWwXePTZZlB5JN+aQv/S/tYJeNYAKlIlUDvQ30ENEQph02lY3UEpVOzUOKXXviz8SpbMhuxnAmNwsbJibtk4wr/aeRaoskXq47Och6pY7hnHJU4mE/YjyzJbvA9L4/ThWkWy5V0ZLwa7dc8RaHa86PbD18Ya40ds+5FiN1Lz93HNDDLKIxMZqoe4o9ZilD9EvVw6m4u8b4ybHQXVUy/RH9+InWPlr7BhupYMGtAQAA"}]},{"id":"inventory.<%= feed_uuid %>.rt.SubDeployment","data":[{"timestamp":1490101278877,"value":"H4sIAAAAAAAAAG3LsQ2AMAxE0V1cMwE1G8ACITlBpMSOjFMgxO4ElJLynf5dZGcBjaQ4pKrH8nKg4MzReFFRKVCLOJrugWJo7VzXCSXJmcHWYnYZP7NU2yTy1p/sJXc1+j2moOCPD2q++4uGAAAA"}]},{"id":"inventory.<%= feed_uuid %>.rt.Servlet","data":[{"timestamp":1490101279090,"value":"H4sIAAAAAAAAAFXKQQqAIBBG4bvM2hN0jbqA6I8J6cg4BiHdPQs3Lb/H66RXAS0kqNzEYXtpyFu1tHQqwgWiEXXoNhT9eFfIeUDHlm3CL3DTwDGHeWfHaWrQ7fHwgvzxAdu8r6l6AAAA"}]},{"id":"inventory.<%= feed_uuid %>.rt.Hawkular
+        WildFly Agent","data":[{"timestamp":1490101278888,"value":"H4sIAAAAAAAAAI2Qy2rDQAxFf8XM2l/gXemDZu1CF6ULdaw6Q2ckI2tcjPG/V3aCU2hxstNFj3N1J6djh65ygj1n8fiyyNI1oOCqyXXCHYoG7E3NpQuNzT7D91eOIMVriM1THIu7FkltiyDhXp+zthyoPd8iz+msTPqjTQvSgl2goIFptVO9TfuGDjQYgGUsHkLveUCrag90sbQzcaspk1ds1Aqa+wt007cj3k/RP5IGHa8/7pk+Q5tPWdX+iAk2POUY99ClGyBmXG4fUsoKH3FNaqtLS624Z1IIhLKG+EvavvC68Z+JP3/N8w9GYYLHawIAAA=="}]},{"id":"inventory.<%= feed_uuid %>.rt.Infinispan","data":[{"timestamp":1490101279127,"value":"H4sIAAAAAAAAAF3LwQ2AIAyF4V16ZgI28O4CBCo20ZYUOBji7lbDyeP38r8B7SoIHhSrdI24vnSQQgvgBxSVgtoIq+l2QMnahTdiqiWwlRxO/G/SWxbiPD8c5Zwyxp2OpMgfH1x+Ng2AAAAA"}]},{"id":"inventory.<%= feed_uuid %>.rt.XA
+        Datasource","data":[{"timestamp":1490101279107,"value":"H4sIAAAAAAAAAH1RwWrDMAz9laCzviC3sfTQHUqhGxTGDp6jpQbHCrLdUoL/fTZNs3Rbe3tPlt6TnkcI54GgBiHPUTS9ForQqqCgHmEQHkiCIZ9ZQjBt7t0/VU1+vwzkZqd6+qfMMXRsXDdNOs39xDLVB2NbIVdMitnKBRPOUL+Pj701uy/TRVHBsNvpA/Vq3sBFax/ZIhyVjVS0GzFHkmpz2XzJ8PaO6tkq739fN1URVk59WiqLXRHCy6ZZX5V/MMKbJ5mimiHCNgudWIrEDBF2pKPkQKqGe2VySn8qCIt1touo7tTz9cKW7kR4+yMpfaT0Dai+wA0bAgAA"}]},{"id":"inventory.<%= feed_uuid %>.rt.Socket
+        Binding Group","data":[{"timestamp":1490101278982,"value":"H4sIAAAAAAAAAH2PwaoCMQxFf2XIul8wS1HkbZ6C7sRF6aRjsZMMmVSQof9u+56IIroK5za593YGvY4ILQhOnMThvqKBzqqFdoZReETRgFOhbCB0ZXfH7ozaLAJ1gfpmLZzGckN2wM+vnLTnItx9yPFwp4LuFGInSDWyRq9Ig16hPczfmzgmH/okVgPTzp1wsI8ilGL8FmvgYmPC6v373/xvGNiyaLPxfkIt4jMZWKK3KWrzQ4riratn71rxFo74oeDrf3M+5nwDHhDes4cBAAA="}]}]'
+    http_version: 
+  recorded_at: Tue, 21 Mar 2017 18:17:27 GMT
+recorded_with: VCR 3.0.3

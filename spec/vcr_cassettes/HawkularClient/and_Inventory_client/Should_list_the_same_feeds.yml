@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://jdoe:password@localhost:8080/hawkular/inventory/traversal/type=f
+    uri: http://jdoe:password@localhost:8080/hawkular/metrics/strings/tags/module:inventory,feed:*
     body:
       encoding: US-ASCII
       string: ''
@@ -10,13 +10,13 @@ http_interactions:
       Accept:
       - application/json
       Accept-Encoding:
-      - gzip, deflate
+      - identity
+      User-Agent:
+      - hawkular-client-ruby
       Hawkular-Tenant:
       - hawkular
       Content-Type:
       - application/json
-      User-Agent:
-      - Ruby
   response:
     status:
       code: 200
@@ -33,33 +33,21 @@ http_interactions:
       Pragma:
       - no-cache
       Date:
-      - Wed, 13 Jul 2016 23:58:01 GMT
-      X-Total-Count:
-      - '1'
+      - Tue, 21 Mar 2017 14:50:21 GMT
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Content-Length:
-      - '269'
-      Link:
-      - <http://localhost:8080/hawkular/inventory/traversal/type=f>; rel="current"
+      - '72'
     body:
-      encoding: ASCII-8BIT
-      string: |-
-        [ {
-          "path" : "/t;hawkular/f;60f168e0-5220-4208-aa28-0d82a3df4c0c",
-          "properties" : {
-            "__identityHash" : "994724c2730de93555ab298d8e4e3f99579a6b"
-          },
-          "identityHash" : "994724c2730de93555ab298d8e4e3f99579a6b",
-          "id" : "60f168e0-5220-4208-aa28-0d82a3df4c0c"
-        } ]
+      encoding: UTF-8
+      string: '{"feed":["f111174a-5a15-4eef-b90c-71efc91f3a3a"],"module":["inventory"]}'
     http_version: 
-  recorded_at: Wed, 13 Jul 2016 23:58:01 GMT
+  recorded_at: Tue, 21 Mar 2017 14:50:21 GMT
 - request:
     method: get
-    uri: http://jdoe:password@localhost:8080/hawkular/inventory/traversal/type=f
+    uri: http://jdoe:password@localhost:8080/hawkular/metrics/strings/tags/module:inventory,feed:*
     body:
       encoding: US-ASCII
       string: ''
@@ -67,13 +55,13 @@ http_interactions:
       Accept:
       - application/json
       Accept-Encoding:
-      - gzip, deflate
+      - identity
+      User-Agent:
+      - hawkular-client-ruby
       Hawkular-Tenant:
       - hawkular
       Content-Type:
       - application/json
-      User-Agent:
-      - Ruby
   response:
     status:
       code: 200
@@ -90,28 +78,16 @@ http_interactions:
       Pragma:
       - no-cache
       Date:
-      - Wed, 13 Jul 2016 23:58:01 GMT
-      X-Total-Count:
-      - '1'
+      - Tue, 21 Mar 2017 14:50:21 GMT
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Content-Length:
-      - '269'
-      Link:
-      - <http://localhost:8080/hawkular/inventory/traversal/type=f>; rel="current"
+      - '72'
     body:
-      encoding: ASCII-8BIT
-      string: |-
-        [ {
-          "path" : "/t;hawkular/f;60f168e0-5220-4208-aa28-0d82a3df4c0c",
-          "properties" : {
-            "__identityHash" : "994724c2730de93555ab298d8e4e3f99579a6b"
-          },
-          "identityHash" : "994724c2730de93555ab298d8e4e3f99579a6b",
-          "id" : "60f168e0-5220-4208-aa28-0d82a3df4c0c"
-        } ]
+      encoding: UTF-8
+      string: '{"feed":["f111174a-5a15-4eef-b90c-71efc91f3a3a"],"module":["inventory"]}'
     http_version: 
-  recorded_at: Wed, 13 Jul 2016 23:58:01 GMT
-recorded_with: VCR 3.0.1
+  recorded_at: Tue, 21 Mar 2017 14:50:21 GMT
+recorded_with: VCR 3.0.3

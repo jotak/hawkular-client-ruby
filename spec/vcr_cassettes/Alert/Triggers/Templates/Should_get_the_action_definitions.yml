@@ -33,7 +33,7 @@ http_interactions:
       Pragma:
       - no-cache
       Date:
-      - Wed, 01 Feb 2017 22:44:58 GMT
+      - Tue, 21 Mar 2017 18:17:22 GMT
       Connection:
       - keep-alive
       Content-Type:
@@ -44,7 +44,7 @@ http_interactions:
       encoding: UTF-8
       string: '["email","webhook"]'
     http_version: 
-  recorded_at: Wed, 01 Feb 2017 22:44:58 GMT
+  recorded_at: Tue, 21 Mar 2017 18:17:22 GMT
 - request:
     method: get
     uri: http://<%= username %>:<%= password %>@localhost:8080/hawkular/alerts/plugins/email
@@ -78,7 +78,7 @@ http_interactions:
       Pragma:
       - no-cache
       Date:
-      - Wed, 01 Feb 2017 22:44:58 GMT
+      - Tue, 21 Mar 2017 18:17:22 GMT
       Connection:
       - keep-alive
       Content-Type:
@@ -89,7 +89,7 @@ http_interactions:
       encoding: UTF-8
       string: '["cc","from","from-name","mail","template.hawkular.url","template.html","template.plain","to"]'
     http_version: 
-  recorded_at: Wed, 01 Feb 2017 22:44:58 GMT
+  recorded_at: Tue, 21 Mar 2017 18:17:22 GMT
 - request:
     method: get
     uri: http://<%= username %>:<%= password %>@localhost:8080/hawkular/alerts/plugins/webhook
@@ -123,7 +123,7 @@ http_interactions:
       Pragma:
       - no-cache
       Date:
-      - Wed, 01 Feb 2017 22:44:58 GMT
+      - Tue, 21 Mar 2017 18:17:22 GMT
       Connection:
       - keep-alive
       Content-Type:
@@ -134,7 +134,7 @@ http_interactions:
       encoding: UTF-8
       string: '["method","timeout","url"]'
     http_version: 
-  recorded_at: Wed, 01 Feb 2017 22:44:58 GMT
+  recorded_at: Tue, 21 Mar 2017 18:17:22 GMT
 - request:
     method: get
     uri: http://<%= username %>:<%= password %>@localhost:8080/hawkular/alerts/plugins/email
@@ -168,7 +168,7 @@ http_interactions:
       Pragma:
       - no-cache
       Date:
-      - Wed, 01 Feb 2017 22:44:58 GMT
+      - Tue, 21 Mar 2017 18:17:22 GMT
       Connection:
       - keep-alive
       Content-Type:
@@ -179,7 +179,7 @@ http_interactions:
       encoding: UTF-8
       string: '["cc","from","from-name","mail","template.hawkular.url","template.html","template.plain","to"]'
     http_version: 
-  recorded_at: Wed, 01 Feb 2017 22:44:58 GMT
+  recorded_at: Tue, 21 Mar 2017 18:17:22 GMT
 - request:
     method: get
     uri: http://<%= username %>:<%= password %>@localhost:8080/hawkular/alerts/plugins/-does-not-exist-
@@ -213,7 +213,7 @@ http_interactions:
       Pragma:
       - no-cache
       Date:
-      - Wed, 01 Feb 2017 22:44:58 GMT
+      - Tue, 21 Mar 2017 18:17:22 GMT
       Connection:
       - keep-alive
       Content-Type:
@@ -224,5 +224,5 @@ http_interactions:
       encoding: UTF-8
       string: '{"errorMsg":"actionPlugin: -does-not-exist- not found"}'
     http_version: 
-  recorded_at: Wed, 01 Feb 2017 22:44:58 GMT
+  recorded_at: Tue, 21 Mar 2017 18:17:22 GMT
 recorded_with: VCR 3.0.3

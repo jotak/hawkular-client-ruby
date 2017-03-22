@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://<%= super_secret_username %>:<%= super_secret_password %>@localhost:8080/hawkular/inventory/traversal/type=f
+    uri: http://<%= super_secret_username %>:<%= super_secret_password %>@localhost:8080/hawkular/metrics/strings/tags/module:inventory,feed:*
     body:
       encoding: US-ASCII
       string: ''
@@ -17,8 +17,6 @@ http_interactions:
       - hawkular
       Content-Type:
       - application/json
-      Host:
-      - localhost:8080
   response:
     status:
       code: 200
@@ -35,28 +33,16 @@ http_interactions:
       Pragma:
       - no-cache
       Date:
-      - Wed, 10 Aug 2016 22:35:34 GMT
-      X-Total-Count:
-      - '1'
+      - Tue, 21 Mar 2017 18:17:25 GMT
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Content-Length:
-      - '271'
-      Link:
-      - <http://localhost:8080/hawkular/inventory/traversal/type=f>; rel="current"
+      - '72'
     body:
       encoding: UTF-8
-      string: |-
-        [ {
-          "path" : "/t;hawkular/f;af0ea377-80f4-4567-af45-105eaa808b92",
-          "properties" : {
-            "__identityHash" : "6f7052f82072f942f3e402fe127d6133ea5e963"
-          },
-          "identityHash" : "6f7052f82072f942f3e402fe127d6133ea5e963",
-          "id" : "af0ea377-80f4-4567-af45-105eaa808b92"
-        } ]
+      string: '{"feed":["f111174a-5a15-4eef-b90c-71efc91f3a3a"],"module":["inventory"]}'
     http_version: 
-  recorded_at: Wed, 10 Aug 2016 22:35:34 GMT
+  recorded_at: Tue, 21 Mar 2017 18:17:25 GMT
 recorded_with: VCR 3.0.3

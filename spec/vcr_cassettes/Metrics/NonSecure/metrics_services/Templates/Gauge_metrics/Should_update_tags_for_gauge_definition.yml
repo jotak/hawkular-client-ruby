@@ -19,8 +19,6 @@ http_interactions:
       - application/json
       Content-Length:
       - '101'
-      Host:
-      - localhost:8080
   response:
     status:
       code: 201
@@ -39,7 +37,7 @@ http_interactions:
       Location:
       - http://localhost:8080/hawkular/metrics/gauges/<%= id %>
       Date:
-      - Mon, 15 Aug 2016 15:20:37 GMT
+      - Tue, 21 Mar 2017 18:17:29 GMT
       Connection:
       - keep-alive
       Content-Length:
@@ -48,7 +46,7 @@ http_interactions:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Mon, 15 Aug 2016 15:20:37 GMT
+  recorded_at: Tue, 21 Mar 2017 18:17:29 GMT
 - request:
     method: get
     uri: http://jdoe:password@localhost:8080/hawkular/metrics/gauges/<%= id %>
@@ -66,8 +64,6 @@ http_interactions:
       - <%= vcr_test_tenant %>
       Content-Type:
       - application/json
-      Host:
-      - localhost:8080
   response:
     status:
       code: 200
@@ -84,18 +80,18 @@ http_interactions:
       Pragma:
       - no-cache
       Date:
-      - Mon, 15 Aug 2016 15:20:37 GMT
+      - Tue, 21 Mar 2017 18:17:29 GMT
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Content-Length:
-      - '221'
+      - '222'
     body:
       encoding: UTF-8
-      string: '{"id":"<%= id %>","tags":{"myTag":"<%= id %>"},"dataRetention":7,"type":"gauge","tenantId":"<%= vcr_test_tenant %>"}'
+      string: '{"id":"<%= id %>","tags":{"myTag":"<%= id %>"},"dataRetention":14,"type":"gauge","tenantId":"<%= vcr_test_tenant %>"}'
     http_version: 
-  recorded_at: Mon, 15 Aug 2016 15:20:37 GMT
+  recorded_at: Tue, 21 Mar 2017 18:17:29 GMT
 - request:
     method: put
     uri: http://jdoe:password@localhost:8080/hawkular/metrics/gauges/<%= id %>/tags
@@ -115,8 +111,6 @@ http_interactions:
       - application/json
       Content-Length:
       - '21'
-      Host:
-      - localhost:8080
   response:
     status:
       code: 200
@@ -137,12 +131,12 @@ http_interactions:
       Content-Length:
       - '0'
       Date:
-      - Mon, 15 Aug 2016 15:20:37 GMT
+      - Tue, 21 Mar 2017 18:17:29 GMT
     body:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Mon, 15 Aug 2016 15:20:37 GMT
+  recorded_at: Tue, 21 Mar 2017 18:17:29 GMT
 - request:
     method: get
     uri: http://jdoe:password@localhost:8080/hawkular/metrics/gauges/<%= id %>
@@ -160,8 +154,6 @@ http_interactions:
       - <%= vcr_test_tenant %>
       Content-Type:
       - application/json
-      Host:
-      - localhost:8080
   response:
     status:
       code: 200
@@ -178,18 +170,18 @@ http_interactions:
       Pragma:
       - no-cache
       Date:
-      - Mon, 15 Aug 2016 15:20:37 GMT
+      - Tue, 21 Mar 2017 18:17:29 GMT
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Content-Length:
-      - '241'
+      - '242'
     body:
       encoding: UTF-8
-      string: '{"id":"<%= id %>","tags":{"myTag":"<%= id %>","newTag":"newValue"},"dataRetention":7,"type":"gauge","tenantId":"<%= vcr_test_tenant %>"}'
+      string: '{"id":"<%= id %>","tags":{"myTag":"<%= id %>","newTag":"newValue"},"dataRetention":14,"type":"gauge","tenantId":"<%= vcr_test_tenant %>"}'
     http_version: 
-  recorded_at: Mon, 15 Aug 2016 15:20:37 GMT
+  recorded_at: Tue, 21 Mar 2017 18:17:29 GMT
 - request:
     method: get
     uri: http://jdoe:password@localhost:8080/hawkular/metrics/metrics/?tags=myTag:<%= id %>&type=gauge
@@ -207,8 +199,6 @@ http_interactions:
       - <%= vcr_test_tenant %>
       Content-Type:
       - application/json
-      Host:
-      - localhost:8080
   response:
     status:
       code: 200
@@ -225,16 +215,16 @@ http_interactions:
       Pragma:
       - no-cache
       Date:
-      - Mon, 15 Aug 2016 15:20:37 GMT
+      - Tue, 21 Mar 2017 18:17:29 GMT
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Content-Length:
-      - '243'
+      - '244'
     body:
       encoding: UTF-8
-      string: '[{"id":"<%= id %>","tags":{"myTag":"<%= id %>","newTag":"newValue"},"dataRetention":7,"type":"gauge","tenantId":"<%= vcr_test_tenant %>"}]'
+      string: '[{"id":"<%= id %>","tags":{"myTag":"<%= id %>","newTag":"newValue"},"dataRetention":14,"type":"gauge","tenantId":"<%= vcr_test_tenant %>"}]'
     http_version: 
-  recorded_at: Mon, 15 Aug 2016 15:20:37 GMT
+  recorded_at: Tue, 21 Mar 2017 18:17:29 GMT
 recorded_with: VCR 3.0.3

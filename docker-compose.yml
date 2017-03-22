@@ -1,5 +1,5 @@
 hawkular:
-  image: "hawkular/hawkular-services:latest"
+  image: "jotak/hawkular-services:latest"
   ports:
     - "8080:8080"
     - "8443:8443"
@@ -7,7 +7,7 @@ hawkular:
   links:
     - myCassandra
   volumes:
-    - /tmp/opt/hawkular/server:/opt/data
+    - /home/jotak/hservices/opt/data:/opt/data:Z
   environment:
     - CASSANDRA_NODES=myCassandra
     - ADMIN_TOKEN
