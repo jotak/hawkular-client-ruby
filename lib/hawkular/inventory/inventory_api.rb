@@ -1,6 +1,8 @@
 require 'hawkular/base_client'
 require 'websocket-client-simple'
 require 'json'
+require 'zlib'
+require 'stringio'
 
 require 'hawkular/inventory/entities'
 
@@ -32,7 +34,7 @@ module Hawkular::Inventory
     #   entrypoint: http://localhost:8080/hawkular/inventory
     # and another sub-hash containing the hash with username[String], password[String], token(optional)
     def self.create(hash)
-      fail 'no parameter ":entrypoint" given' if hash[:entrypoint].nil?
+      fail 'no parameter ":entrypoint" given' unless hash[:entrypoint]
       hash[:credentials] ||= {}
       hash[:options] ||= {}
       Client.new(hash[:entrypoint], hash[:credentials], hash[:options])
@@ -42,27 +44,45 @@ module Hawkular::Inventory
     # @return [Array<String>] List of feed ids
     def list_feeds
       ret = http_get('/strings/tags/module:inventory,feed:*')
+      return [] unless ret.key? 'feed'
       ret['feed']
     end
 
-    # List resource types. If no feed_id is given all types are listed
-    # @param [String] feed_id The id of the feed the type lives under. Can be nil for feedless types
+    # List resource types for the given feed
+    # @param [String] feed_id The id of the feed the type lives under
     # @return [Array<ResourceType>] List of types, that can be empty
     def list_resource_types(feed_id)
       fail 'Feed id must be given' unless feed_id
-      the_feed = hawk_escape_id feed_id
-      ret = http_post(
+      feed_path = feed_cp(feed_id)
+      response = http_post(
         '/strings/raw/query',
         fromEarliest: true,
         limit: 1,
         order: 'DESC',
-        tags: "module:inventory,type:rt,feed:#{the_feed}")
-      ret.map do |rt|
-        json = extract_metric_json(rt)
-        unless json.nil?
-          root_hash = extract_entity_hash("/f;#{feed_id}", json['type'], json, false)
-          ResourceType.new(root_hash)
-        end
+        tags: "#{feed_path.to_tags},type:rt")
+      structures = extract_structures_from_body(response)
+      structures.map do |rt|
+        root_hash = entity_json_to_hash(-> (id) { feed_path.rt(id) }, rt['inventoryStructure'], false)
+        ResourceType.new(root_hash)
+      end
+    end
+
+    # List metric types for the given feed
+    # @param [String] feed_id The id of the feed the type lives under
+    # @return [Array<MetricType>] List of types, that can be empty
+    def list_metric_types(feed_id)
+      fail 'Feed id must be given' unless feed_id
+      feed_path = feed_cp(feed_id)
+      response = http_post(
+        '/strings/raw/query',
+        fromEarliest: true,
+        limit: 1,
+        order: 'DESC',
+        tags: "#{feed_path.to_tags},type:mt")
+      structures = extract_structures_from_body(response)
+      structures.map do |mt|
+        root_hash = entity_json_to_hash(-> (id) { feed_path.mt(id) }, mt['inventoryStructure'], false)
+        MetricType.new(root_hash)
       end
     end
 
@@ -72,20 +92,17 @@ module Hawkular::Inventory
     # @return [Array<Resource>] List of resources, which can be empty.
     def list_resources_for_feed(feed_id, fetch_properties = false, filter = {})
       fail 'Feed id must be given' unless feed_id
-      the_feed = hawk_escape_id feed_id
-      ret = http_post(
+      feed_path = feed_cp(feed_id)
+      response = http_post(
         '/strings/raw/query',
         fromEarliest: true,
         limit: 1,
         order: 'DESC',
-        tags: "module:inventory,type:r,feed:#{the_feed}"
-      )
-      to_filter = ret.map do |r|
-        json = extract_metric_json(r)
-        unless json.nil?
-          root_hash = extract_entity_hash("/f;#{feed_id}", json['type'], json, fetch_properties)
-          Resource.new(root_hash)
-        end
+        tags: "#{feed_path.to_tags},type:r")
+      structures = extract_structures_from_body(response)
+      to_filter = structures.map do |r|
+        root_hash = entity_json_to_hash(-> (id) { feed_path.down(id) }, r['inventoryStructure'], fetch_properties)
+        Resource.new(root_hash)
       end
       filter_entities(to_filter, filter)
     end
@@ -99,28 +116,33 @@ module Hawkular::Inventory
     # @return [Array<Resource>] List of resources. Can be empty
     def list_resources_for_type(resource_type_path, fetch_properties = false)
       path = resource_type_path.is_a?(CanonicalPath) ? resource_type_path : CanonicalPath.parse(resource_type_path)
-      resource_type_id = path.resource_type_id
-      feed_id = path.feed_id
-      fail 'Feed id must be given' unless feed_id
-      fail 'Resource type must be given' unless resource_type_id
-      # First step: get all resource paths for given type. This call returns metric definitions
-      ret = http_get("/metrics?type=string&tags=module:inventory,type:r,feed:#{feed_id},rt.#{resource_type_id}:^$")
-      unless ret.empty?
-        ret = http_post(
-          '/strings/raw/query',
-          fromEarliest: true,
-          limit: 1,
-          order: 'DESC',
-          ids: ret.map { |m| m['id'] }
-        )
-      end
-      ret.map do |r|
-        json = extract_metric_json(r)
-        unless json.nil?
-          root_hash = extract_entity_hash("/f;#{feed_id}", json['type'], json, fetch_properties)
-          Resource.new(root_hash)
-        end
-      end
+      fail 'Feed id must be given' unless path.feed_id
+      fail 'Resource type must be given' unless path.resource_type_id
+
+      # Fetch metrics by tag
+      feed_path = feed_cp(path.feed_id)
+      resource_type_id = URI.unescape(path.resource_type_id)
+      escaped_for_regex = Regexp.quote("|#{resource_type_id}|")
+      response = http_post(
+        '/strings/raw/query',
+        fromEarliest: true,
+        limit: 1,
+        order: 'DESC',
+        tags: "#{feed_path.to_tags},type:r,restypes:.*#{escaped_for_regex}.*")
+      structures = extract_structures_from_body(response)
+      return [] if structures.empty?
+
+      # Now find each collected resource path in their belonging InventoryStructure
+      extract_resources_for_type(structures, feed_path, resource_type_id, fetch_properties)
+    end
+
+    # Retrieve runtime properties for the passed resource
+    # @param [String] resource_path Canonical path of the resource to read properties from.
+    # @return [Hash<String,Object] Hash with additional data
+    def get_config_data_for_resource(resource_path)
+      path = resource_path.is_a?(CanonicalPath) ? resource_path : CanonicalPath.parse(resource_path)
+      raw_hash = get_raw_entity_hash(path)
+      { 'value' => fetch_properties(raw_hash) } if raw_hash
     end
 
     # Obtain the child resources of the passed resource. In case of a WildFly server,
@@ -134,7 +156,42 @@ module Hawkular::Inventory
       feed_id = path.feed_id
       fail 'Feed id must be given' unless feed_id
       entity_hash = get_raw_entity_hash(path)
-      extract_child_resources([], path.to_s, entity_hash, recursive)
+      extract_child_resources([], path.to_s, entity_hash, recursive) if entity_hash
+    end
+
+    # List metric (definitions) for the passed resource. It is possible to filter down the
+    #   result by a filter to only return a subset. The
+    # @param [String] resource_path Canonical path of the resource.
+    # @param [Hash{Symbol=>String}] filter for 'type' and 'match'
+    #   Metric type can be one of 'GAUGE', 'COUNTER', 'AVAILABILITY'. If a key is missing
+    #   it will not be used for filtering
+    # @return [Array<Metric>] List of metrics that can be empty.
+    # @example
+    #    # Filter by type and match on metrics id
+    #    client.list_metrics_for_resource(wild_fly, type: 'GAUGE', match: 'Metrics~Heap')
+    #    # Filter by type only
+    #    client.list_metrics_for_resource(wild_fly, type: 'COUNTER')
+    #    # Don't filter, return all metric definitions
+    #    client.list_metrics_for_resource(wild_fly)
+    def list_metrics_for_resource(resource_path, filter = {})
+      path = resource_path.is_a?(CanonicalPath) ? resource_path : CanonicalPath.parse(resource_path)
+      raw_hash = get_raw_entity_hash(path)
+      return [] unless raw_hash
+      to_filter = []
+      if (raw_hash.key? 'children') && (raw_hash['children'].key? 'metric') && !raw_hash['children']['metric'].empty?
+        # Need to merge metric type info that we must grab from another place
+        metric_types = list_metric_types(path.feed_id)
+        metric_types_index = {}
+        metric_types.each { |mt| metric_types_index[mt.path] = mt }
+        to_filter = raw_hash['children']['metric'].map do |m|
+          metric_data = m['data']
+          metric_data['path'] = "#{path}/m;#{metric_data['id']}"
+          metric_type = metric_types_index[metric_data['metricTypePath']]
+          Metric.new(metric_data, metric_type) if metric_type
+        end
+        to_filter = to_filter.select { |m| m }
+      end
+      filter_entities(to_filter, filter)
     end
 
     # Return the resource object for the passed path
@@ -143,8 +200,11 @@ module Hawkular::Inventory
     def get_resource(resource_path, fetch_properties = true)
       path = resource_path.is_a?(CanonicalPath) ? resource_path : CanonicalPath.parse(resource_path)
       raw_hash = get_raw_entity_hash(path)
-      return if raw_hash.nil?
-      entity_hash = extract_entity_hash(path.up, 'resource', raw_hash, fetch_properties)
+      unless raw_hash
+        exception = HawkularException.new("Resource not found: #{resource_path}")
+        fail exception
+      end
+      entity_hash = entity_json_to_hash(-> (_) { path }, raw_hash, fetch_properties)
       Resource.new(entity_hash)
     end
 
@@ -153,6 +213,10 @@ module Hawkular::Inventory
     #         ('Implementation-Version', 'Built-From-Git-SHA1', 'Status')
     def fetch_version_and_status
       http_get('/status')
+    end
+
+    def feed_cp(feed_id)
+      CanonicalPath.new(tenant_id: @tenant, feed_id: hawk_escape_id(feed_id))
     end
 
     private
@@ -170,21 +234,12 @@ module Hawkular::Inventory
       end
     end
 
-    def extract_metric_json(metric)
-      extract_datapoints_json(metric['data'])
-    end
-
-    def extract_datapoints_json(datapoints)
-      JSON.parse(datapoints[0]['value']) unless (datapoints.empty?) || (datapoints[0]['value'].empty?)
-    end
-
-    def extract_entity_hash(parent_path, type, json, fetch_properties)
+    def entity_json_to_hash(path_getter, json, fetch_properties)
       data = json['data']
-      type = shorten_resource_type(type)
-      data['path'] = "#{parent_path}/#{type};#{data['id']}"
+      data['path'] = path_getter.call(data['id']).to_s
       if fetch_properties
         props = fetch_properties(json)
-        data['properties'].merge! props unless props.nil?
+        data['properties'].merge! props if props
       end
       # Evict children
       data.delete('children') unless data.key? 'children'
@@ -194,41 +249,30 @@ module Hawkular::Inventory
     def fetch_properties(json)
       return unless (json.key? 'children') && (json['children'].key? 'dataEntity')
       config = json['children']['dataEntity'].find { |d| d['data']['id'] == 'configuration' }
-      config['data']['value'] unless config.nil?
-    end
-
-    def shorten_resource_type(resource_type)
-      # cf InventoryStructure.class$EntityType
-      case resource_type
-      when 'feed'
-        'f'
-      when 'resourceType'
-        'rt'
-      when 'metricType'
-        'mt'
-      when 'operationType'
-        'ot'
-      when 'metric'
-        'm'
-      when 'resource'
-        'r'
-      when 'dataEntity'
-        'd'
-      else
-        fail "Unknown type #{resource_type}"
-      end
+      config['data']['value'] if config
     end
 
     def get_raw_entity_hash(path)
       c_path = path.is_a?(CanonicalPath) ? path : CanonicalPath.parse(path)
-      id = ERB::Util.url_encode c_path.to_metric_name
-      raw = http_get("/strings/#{id}/raw?limit=1&order=DESC&fromEarliest=true")
-      entity = extract_datapoints_json(raw)
-      unless c_path.resource_ids.nil?
-        relative = c_path.resource_ids.drop(1)
+      raw = http_post(
+        '/strings/raw/query',
+        fromEarliest: true,
+        limit: 1,
+        order: 'DESC',
+        tags: c_path.to_tags
+      )
+      structure = extract_structure_from_body(raw)
+      find_entity_in_tree(c_path, structure)
+    end
+
+    def find_entity_in_tree(fullpath, inventory_structure)
+      entity = inventory_structure
+      if fullpath.resource_ids
+        relative = fullpath.resource_ids.drop(1)
         relative.each do |child|
           if (entity.key? 'children') && (entity['children'].key? 'resource')
-            entity = entity['children']['resource'].find { |r| r['data']['id'] == child }
+            unescaped = URI.unescape(child)
+            entity = entity['children']['resource'].find { |r| r['data']['id'] == unescaped }
           else
             entity = nil
             break
@@ -239,14 +283,89 @@ module Hawkular::Inventory
     end
 
     def extract_child_resources(arr, path, parent_hash, recursive)
+      c_path = path.is_a?(CanonicalPath) ? path : CanonicalPath.parse(path)
       if (parent_hash.key? 'children') && (parent_hash['children'].key? 'resource')
         parent_hash['children']['resource'].each do |r|
-          entity = extract_entity_hash(path, 'resource', r, false)
+          entity = entity_json_to_hash(-> (id) { c_path.down(id) }, r, false)
           arr.push(Resource.new(entity))
           extract_child_resources(arr, entity['path'], r, true) if recursive
         end
       end
       arr
+    end
+
+    def extract_resources_for_type(structures, feed_path, resource_type_id, fetch_properties)
+      matching_resources = []
+      structures.each do |full_struct|
+        next unless full_struct.key? 'typesIndex'
+        next unless full_struct['typesIndex'].key? resource_type_id
+        inventory_structure = full_struct['inventoryStructure']
+        root_path = feed_path.down(inventory_structure['data']['id'])
+        full_struct['typesIndex'][resource_type_id].each do |relative_path|
+          if relative_path.empty?
+            # Root resource
+            resource = entity_json_to_hash(-> (id) { feed_path.down(id) }, inventory_structure, fetch_properties)
+            matching_resources.push(Resource.new(resource))
+          else
+            # Search for child
+            fullpath = CanonicalPath.parse("#{root_path}/#{relative_path}")
+            resource_json = find_entity_in_tree(fullpath, inventory_structure)
+            if resource_json
+              resource = entity_json_to_hash(-> (id) { root_path.down(id) }, resource_json, fetch_properties)
+              matching_resources.push(Resource.new(resource))
+            end
+          end
+        end
+      end
+      matching_resources
+    end
+
+    def extract_structure_from_body(response_body_array)
+      # Expecting only 1 structure (but may have several chunks)
+      structures = extract_structures_from_body(response_body_array)
+      structures[0]['inventoryStructure'] unless structures.empty?
+    end
+
+    def extract_structures_from_body(response_body_array)
+      masters_by_id = {}
+      slaves_by_id = {}
+      # Distribute data between slave and master chunks
+      response_body_array.each do |node|
+        id = node['id']
+        data_node = node['data'][0]
+        if (data_node.key? 'tags') && (data_node['tags'].key? 'chunk')
+          chunk_id = data_node['tags']['chunk']
+          if chunk_id == '0'
+            masters_by_id[id] = data_node
+          else
+            slaves_by_id[id] = data_node
+          end
+        else
+          # Not chunked, consider it as a master with no slave
+          masters_by_id[id] = data_node
+        end
+      end
+      # Extract each master with its slave(s)
+      masters_by_id.map { |k, v| rebuild_from_chunks(k, v, slaves_by_id) }
+        .select { |full| full } # evict nil
+        .map { |full| decompress(full) }
+    end
+
+    def rebuild_from_chunks(master_id, master_data, slaves_by_id)
+      return Base64.decode64(master_data['value']) unless (master_data.key? 'tags') &&
+                                                          (master_data['tags'].key? 'chunk')
+      last_chunk = master_data['tags']['chunks'].to_i - 1
+      all = Base64.decode64(master_data['value'])
+      return if all.empty?
+      (1..last_chunk).inject(all) do |full, chunk_id|
+        slave_data = slaves_by_id["#{master_id}.#{chunk_id}"]
+        full.concat(Base64.decode64(slave_data['value']))
+      end
+    end
+
+    def decompress(raw)
+      gz = Zlib::GzipReader.new(StringIO.new(raw))
+      JSON.parse(gz.read)
     end
   end
 
