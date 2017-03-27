@@ -57,7 +57,6 @@ module Hawkular::Inventory
       response = http_post(
         '/strings/raw/query',
         fromEarliest: true,
-        limit: 1,
         order: 'DESC',
         tags: "#{feed_path.to_tags},type:rt")
       structures = extract_structures_from_body(response)
@@ -76,7 +75,6 @@ module Hawkular::Inventory
       response = http_post(
         '/strings/raw/query',
         fromEarliest: true,
-        limit: 1,
         order: 'DESC',
         tags: "#{feed_path.to_tags},type:mt")
       structures = extract_structures_from_body(response)
@@ -96,7 +94,6 @@ module Hawkular::Inventory
       response = http_post(
         '/strings/raw/query',
         fromEarliest: true,
-        limit: 1,
         order: 'DESC',
         tags: "#{feed_path.to_tags},type:r")
       structures = extract_structures_from_body(response)
@@ -126,7 +123,6 @@ module Hawkular::Inventory
       response = http_post(
         '/strings/raw/query',
         fromEarliest: true,
-        limit: 1,
         order: 'DESC',
         tags: "#{feed_path.to_tags},type:r,restypes:.*#{escaped_for_regex}.*")
       structures = extract_structures_from_body(response)
@@ -257,7 +253,6 @@ module Hawkular::Inventory
       raw = http_post(
         '/strings/raw/query',
         fromEarliest: true,
-        limit: 1,
         order: 'DESC',
         tags: c_path.to_tags
       )
@@ -327,38 +322,21 @@ module Hawkular::Inventory
     end
 
     def extract_structures_from_body(response_body_array)
-      masters_by_id = {}
-      slaves_by_id = {}
-      # Distribute data between slave and master chunks
-      response_body_array.each do |node|
-        id = node['id']
-        data_node = node['data'][0]
-        if (data_node.key? 'tags') && (data_node['tags'].key? 'chunk')
-          chunk_id = data_node['tags']['chunk']
-          if chunk_id == '0'
-            masters_by_id[id] = data_node
-          else
-            slaves_by_id[id] = data_node
-          end
-        else
-          # Not chunked, consider it as a master with no slave
-          masters_by_id[id] = data_node
-        end
-      end
-      # Extract each master with its slave(s)
-      masters_by_id.map { |k, v| rebuild_from_chunks(k, v, slaves_by_id) }
+      response_body_array.map { |element| rebuild_from_chunks(element['data']) }
         .select { |full| full } # evict nil
         .map { |full| decompress(full) }
     end
 
-    def rebuild_from_chunks(master_id, master_data, slaves_by_id)
+    def rebuild_from_chunks(data_node)
+      return if data_node.empty?
+      master_data = data_node[0]
       return Base64.decode64(master_data['value']) unless (master_data.key? 'tags') &&
-                                                          (master_data['tags'].key? 'chunk')
+                                                          (master_data['tags'].key? 'chunks')
       last_chunk = master_data['tags']['chunks'].to_i - 1
       all = Base64.decode64(master_data['value'])
       return if all.empty?
       (1..last_chunk).inject(all) do |full, chunk_id|
-        slave_data = slaves_by_id["#{master_id}.#{chunk_id}"]
+        slave_data = data_node[chunk_id]
         full.concat(Base64.decode64(slave_data['value']))
       end
     end
