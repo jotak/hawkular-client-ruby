@@ -270,8 +270,6 @@ module Hawkular::Inventory
         props = fetch_properties(json)
         data['properties'].merge! props if props
       end
-      # Evict children
-      data.delete('children') unless data.key? 'children'
       data
     end
 
@@ -288,8 +286,6 @@ module Hawkular::Inventory
         param_types = json['children']['dataEntity'].find { |d| d['data']['id'] == 'parameterTypes' }
         data['parameters'] = param_types['data']['value'] if param_types
       end
-      # Evict children
-      data.delete('children') unless data.key? 'children'
       data
     end
 
