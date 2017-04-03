@@ -204,6 +204,39 @@ module Hawkular::Inventory
       Resource.new(entity_hash)
     end
 
+    # List operation definitions (types) for a given resource type
+    # @param [String] resource_type_path canonical path of the resource type entity
+    # @return [Array<String>] List of operation type ids
+    def list_operation_definitions(resource_type_path)
+      path = resource_type_path.is_a?(CanonicalPath) ? resource_type_path : CanonicalPath.parse(resource_type_path)
+      fail 'Missing feed_id in resource_type_path' unless path.feed_id
+      fail 'Missing resource_type_id in resource_type_path' unless path.resource_type_id
+      response = http_post(
+        '/strings/raw/query',
+        fromEarliest: true,
+        order: 'DESC',
+        tags: path.to_tags)
+      structures = extract_structures_from_body(response)
+      res = {}
+      structures.map { |rt| rt['inventoryStructure'] }
+        .find_all { |rt| (rt.key? 'children') && (rt['children'].key? 'operationType') }
+        .flat_map { |rt| rt['children']['operationType'] }
+        .each do |ot|
+          hash = optype_json_to_hash(ot)
+          od = OperationDefinition.new hash
+          res.store od.name, od
+      end
+      res
+    end
+
+    # List operation definitions (types) for a given resource
+    # @param [String] resource_path canonical path of the resource entity
+    # @return [Array<String>] List of operation type ids
+    def list_operation_definitions_for_resource(resource_path)
+      resource = get_resource(resource_path, false)
+      list_operation_definitions(resource.type_path)
+    end
+
     # Return version and status information for the used version of Hawkular-Inventory
     # @return [Hash{String=>String}]
     #         ('Implementation-Version', 'Built-From-Git-SHA1', 'Status')
@@ -246,6 +279,18 @@ module Hawkular::Inventory
       return unless (json.key? 'children') && (json['children'].key? 'dataEntity')
       config = json['children']['dataEntity'].find { |d| d['data']['id'] == 'configuration' }
       config['data']['value'] if config
+    end
+
+    def optype_json_to_hash(json)
+      data = json['data']
+      # Fetch parameterTypes
+      if (json.key? 'children') && (json['children'].key? 'dataEntity')
+        param_types = json['children']['dataEntity'].find { |d| d['data']['id'] == 'parameterTypes' }
+        data['parameters'] = param_types['data']['value'] if param_types
+      end
+      # Evict children
+      data.delete('children') unless data.key? 'children'
+      data
     end
 
     def get_raw_entity_hash(path)
