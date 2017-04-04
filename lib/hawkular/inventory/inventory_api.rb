@@ -61,7 +61,7 @@ module Hawkular::Inventory
         tags: "#{feed_path.to_tags},type:rt")
       structures = extract_structures_from_body(response)
       structures.map do |rt|
-        root_hash = entity_json_to_hash(-> (id) { feed_path.rt(id) }, rt['inventoryStructure'], false)
+        root_hash = entity_json_to_hash(-> (id) { feed_path.resource_type(id) }, rt['inventoryStructure'], false)
         ResourceType.new(root_hash)
       end
     end
@@ -79,7 +79,7 @@ module Hawkular::Inventory
         tags: "#{feed_path.to_tags},type:mt")
       structures = extract_structures_from_body(response)
       structures.map do |mt|
-        root_hash = entity_json_to_hash(-> (id) { feed_path.mt(id) }, mt['inventoryStructure'], false)
+        root_hash = entity_json_to_hash(-> (id) { feed_path.metric_type(id) }, mt['inventoryStructure'], false)
         MetricType.new(root_hash)
       end
     end
@@ -112,7 +112,7 @@ module Hawkular::Inventory
     # @param [Boolean] fetch_properties Shall additional runtime properties be fetched?
     # @return [Array<Resource>] List of resources. Can be empty
     def list_resources_for_type(resource_type_path, fetch_properties = false)
-      path = resource_type_path.is_a?(CanonicalPath) ? resource_type_path : CanonicalPath.parse(resource_type_path)
+      path = CanonicalPath.parse_if_string(resource_type_path)
       fail 'Feed id must be given' unless path.feed_id
       fail 'Resource type must be given' unless path.resource_type_id
 
@@ -136,7 +136,7 @@ module Hawkular::Inventory
     # @param [String] resource_path Canonical path of the resource to read properties from.
     # @return [Hash<String,Object] Hash with additional data
     def get_config_data_for_resource(resource_path)
-      path = resource_path.is_a?(CanonicalPath) ? resource_path : CanonicalPath.parse(resource_path)
+      path = CanonicalPath.parse_if_string(resource_path)
       raw_hash = get_raw_entity_hash(path)
       { 'value' => fetch_properties(raw_hash) } if raw_hash
     end
@@ -148,7 +148,7 @@ module Hawkular::Inventory
     # @return [Array<Resource>] List of resources that are children of the given parent resource.
     #   Can be empty
     def list_child_resources(parent_res_path, recursive = false)
-      path = parent_res_path.is_a?(CanonicalPath) ? parent_res_path : CanonicalPath.parse(parent_res_path)
+      path = CanonicalPath.parse_if_string(parent_res_path)
       feed_id = path.feed_id
       fail 'Feed id must be given' unless feed_id
       entity_hash = get_raw_entity_hash(path)
@@ -170,7 +170,7 @@ module Hawkular::Inventory
     #    # Don't filter, return all metric definitions
     #    client.list_metrics_for_resource(wild_fly)
     def list_metrics_for_resource(resource_path, filter = {})
-      path = resource_path.is_a?(CanonicalPath) ? resource_path : CanonicalPath.parse(resource_path)
+      path = CanonicalPath.parse_if_string(resource_path)
       raw_hash = get_raw_entity_hash(path)
       return [] unless raw_hash
       to_filter = []
@@ -194,7 +194,7 @@ module Hawkular::Inventory
     # @param [String] resource_path Canonical path of the resource to fetch.
     # @param [Boolean] fetch_properties Should the resource config data be fetched?
     def get_resource(resource_path, fetch_properties = true)
-      path = resource_path.is_a?(CanonicalPath) ? resource_path : CanonicalPath.parse(resource_path)
+      path = CanonicalPath.parse_if_string(resource_path)
       raw_hash = get_raw_entity_hash(path)
       unless raw_hash
         exception = HawkularException.new("Resource not found: #{resource_path}")
@@ -208,7 +208,7 @@ module Hawkular::Inventory
     # @param [String] resource_type_path canonical path of the resource type entity
     # @return [Array<String>] List of operation type ids
     def list_operation_definitions(resource_type_path)
-      path = resource_type_path.is_a?(CanonicalPath) ? resource_type_path : CanonicalPath.parse(resource_type_path)
+      path = CanonicalPath.parse_if_string(resource_type_path)
       fail 'Missing feed_id in resource_type_path' unless path.feed_id
       fail 'Missing resource_type_id in resource_type_path' unless path.resource_type_id
       response = http_post(
@@ -219,12 +219,12 @@ module Hawkular::Inventory
       structures = extract_structures_from_body(response)
       res = {}
       structures.map { |rt| rt['inventoryStructure'] }
-        .find_all { |rt| (rt.key? 'children') && (rt['children'].key? 'operationType') }
+        .select { |rt| rt['children'] && rt['children']['operationType'] }
         .flat_map { |rt| rt['children']['operationType'] }
         .each do |ot|
           hash = optype_json_to_hash(ot)
           od = OperationDefinition.new hash
-          res.store od.name, od
+          res[od.name] = od
       end
       res
     end
@@ -290,7 +290,7 @@ module Hawkular::Inventory
     end
 
     def get_raw_entity_hash(path)
-      c_path = path.is_a?(CanonicalPath) ? path : CanonicalPath.parse(path)
+      c_path = CanonicalPath.parse_if_string(path)
       raw = http_post(
         '/strings/raw/query',
         fromEarliest: true,
@@ -319,7 +319,7 @@ module Hawkular::Inventory
     end
 
     def extract_child_resources(arr, path, parent_hash, recursive)
-      c_path = path.is_a?(CanonicalPath) ? path : CanonicalPath.parse(path)
+      c_path = CanonicalPath.parse_if_string(path)
       if (parent_hash.key? 'children') && (parent_hash['children'].key? 'resource')
         parent_hash['children']['resource'].each do |r|
           entity = entity_json_to_hash(-> (id) { c_path.down(id) }, r, false)

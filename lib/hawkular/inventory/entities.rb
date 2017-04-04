@@ -185,6 +185,10 @@ module Hawkular::Inventory
       CanonicalPath.new(path_to_h path)
     end
 
+    def self.parse_if_string(path)
+      path.is_a?(CanonicalPath) ? path : CanonicalPath.parse(path)
+    end
+
     # Move up to the parent path of the resource. resource_ids set to empty array when there is no parent.
     # @return CanonicalPath corresponding to the direct ancestor of the resource represented by this path object.
     def up
@@ -207,7 +211,7 @@ module Hawkular::Inventory
 
     # Set resource type to the current path
     # @return a new CanonicalPath based on the current one
-    def rt(resource_type)
+    def resource_type(resource_type)
       hash = to_h
       hash[:resource_type_id] = hawk_escape_id(resource_type)
       CanonicalPath.new(hash)
@@ -215,7 +219,7 @@ module Hawkular::Inventory
 
     # Set metric type to the current path
     # @return a new CanonicalPath based on the current one
-    def mt(metric_type)
+    def metric_type(metric_type)
       hash = to_h
       hash[:metric_type_id] = hawk_escape_id(metric_type)
       CanonicalPath.new(hash)
