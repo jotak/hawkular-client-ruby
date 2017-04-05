@@ -10,18 +10,16 @@ http_interactions:
       Accept:
       - application/json
       Accept-Encoding:
-      - gzip, deflate
+      - identity
+      User-Agent:
+      - hawkular-client-ruby
       Content-Type:
       - application/json
-      User-Agent:
-      - Ruby
   response:
     status:
       code: 200
       message: OK
     headers:
-      Content-Encoding:
-      - gzip
       Connection:
       - keep-alive
       X-Powered-By:
@@ -31,18 +29,14 @@ http_interactions:
       Content-Type:
       - application/json
       Content-Length:
-      - '142'
+      - '153'
       Date:
-      - Tue, 29 Mar 2016 15:25:01 GMT
+      - Mon, 27 Mar 2017 10:22:15 GMT
     body:
-      encoding: ASCII-8BIT
-      string: !binary |-
-        H4sIAAAAAAAAAA3Kuw7CIBQA0H+5sxCopS1uNVp1cJHGncdtQgLUUHQx/rtM
-        ZzlfuGPJ3m4K88dbhAOoeXzM5xPs4BZfASOmootfE3li3qq1MMr3lNHJJx3q
-        O759KGTKayQXX4i6jrymfjANN91gOt20mvWLk44L44Q0Wljk0rWS8cHC7w/2
-        87rIhQAAAA==
+      encoding: UTF-8
+      string: '{"MetricsService":"STARTED","Implementation-Version":"0.26.0-SNAPSHOT","Built-From-Git-SHA1":"65cace494ecb1fe770989a9e57d140f1918ef0e9","Cassandra":"up"}'
     http_version: 
-  recorded_at: Tue, 29 Mar 2016 15:25:01 GMT
+  recorded_at: Mon, 27 Mar 2017 10:22:15 GMT
 - request:
     method: get
     uri: http://jdoe:password@localhost:8080/hawkular/metrics/status
@@ -53,18 +47,18 @@ http_interactions:
       Accept:
       - application/json
       Accept-Encoding:
-      - gzip, deflate
+      - identity
+      User-Agent:
+      - hawkular-client-ruby
+      Hawkular-Tenant:
+      - hawkular
       Content-Type:
       - application/json
-      User-Agent:
-      - Ruby
   response:
     status:
       code: 200
       message: OK
     headers:
-      Content-Encoding:
-      - gzip
       Connection:
       - keep-alive
       X-Powered-By:
@@ -74,16 +68,12 @@ http_interactions:
       Content-Type:
       - application/json
       Content-Length:
-      - '142'
+      - '153'
       Date:
-      - Tue, 29 Mar 2016 15:25:02 GMT
+      - Mon, 27 Mar 2017 10:22:15 GMT
     body:
-      encoding: ASCII-8BIT
-      string: !binary |-
-        H4sIAAAAAAAAAA3Kuw7CIBQA0H+5sxCopS1uNVp1cJHGncdtQgLUUHQx/rtM
-        ZzlfuGPJ3m4K88dbhAOoeXzM5xPs4BZfASOmootfE3li3qq1MMr3lNHJJx3q
-        O759KGTKayQXX4i6jrymfjANN91gOt20mvWLk44L44Q0Wljk0rWS8cHC7w/2
-        87rIhQAAAA==
+      encoding: UTF-8
+      string: '{"MetricsService":"STARTED","Implementation-Version":"0.26.0-SNAPSHOT","Built-From-Git-SHA1":"65cace494ecb1fe770989a9e57d140f1918ef0e9","Cassandra":"up"}'
     http_version: 
-  recorded_at: Tue, 29 Mar 2016 15:25:02 GMT
-recorded_with: VCR 3.0.1
+  recorded_at: Mon, 27 Mar 2017 10:22:15 GMT
+recorded_with: VCR 3.0.3

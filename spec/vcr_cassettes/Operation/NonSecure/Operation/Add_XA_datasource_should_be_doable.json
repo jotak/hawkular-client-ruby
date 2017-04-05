@@ -3,7 +3,7 @@
     {
       "operation": "read",
       "type": "text",
-      "data": "WelcomeResponse={\"sessionId\":\"TC_c3Qy43SYmidP3Ww_NpRf2ktIMJRVSatWmYNY0\"}"
+      "data": "WelcomeResponse={\"sessionId\":\"Cn8K9EVj6rTUaACaqdYtebV_YF9Bm21KoKXpKYWz\"}"
     },
     {
       "operation": "write",
@@ -12,12 +12,12 @@
     {
       "operation": "read",
       "type": "text",
-      "data": "GenericSuccessResponse={\"message\":\"The request has been forwarded to feed [<%= feed_id %>] (MessageId=ID:c0048ae3-9279-11e6-955a-b524510fbe59)\"}"
+      "data": "GenericSuccessResponse={\"message\":\"The request has been forwarded to feed [<%= feed_id %>] (MessageId=ID:71f2856e-19df-11e7-a64c-41e62100e722)\"}"
     },
     {
       "operation": "read",
       "type": "text",
-      "data": "AddDatasourceResponse={\"xaDatasource\":true,\"datasourceName\":\"CreatedByRubyDSXA<%= random_uuid %>\",\"resourcePath\":\"/t;<%= tenant_id %>/f;<%= feed_id %>/r;Local~~\",\"destinationSessionId\":\"TC_c3Qy43SYmidP3Ww_NpRf2ktIMJRVSatWmYNY0\",\"status\":\"OK\",\"message\":\"Added Datasource: CreatedByRubyDSXA<%= random_uuid %>\"}"
+      "data": "AddDatasourceResponse={\"xaDatasource\":true,\"datasourceName\":\"CreatedByRubyDSXA<%= random_uuid %>\",\"resourcePath\":\"/t;<%= tenant_id %>/f;<%= feed_id %>/r;Local~~\",\"destinationSessionId\":\"Cn8K9EVj6rTUaACaqdYtebV_YF9Bm21KoKXpKYWz\",\"status\":\"OK\",\"message\":\"Added Datasource: CreatedByRubyDSXA<%= random_uuid %>\",\"serverRefreshIndicator\":\"RELOAD-REQUIRED\"}"
     }
   ]
 ]

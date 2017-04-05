@@ -3,7 +3,7 @@
     {
       "operation": "read",
       "type": "text",
-      "data": "WelcomeResponse={\"sessionId\":\"xlrBtN7CfOPEFbAFsCzgn3p7wq2Ykf7OEFqPmP-F\"}"
+      "data": "WelcomeResponse={\"sessionId\":\"xxzcjha-UjNPu2hj7UTh70HESsWdFtCS1dauhrO8\"}"
     },
     {
       "operation": "write",
@@ -12,12 +12,12 @@
     {
       "operation": "read",
       "type": "text",
-      "data": "GenericSuccessResponse={\"message\":\"The request has been forwarded to feed [<%= feed_id %>] (MessageId=ID:cdfef562-f793-11e6-9448-dbddd5ca48d1)\"}"
+      "data": "GenericSuccessResponse={\"message\":\"The request has been forwarded to feed [<%= feed_id %>] (MessageId=ID:7e38e9ff-19df-11e7-a64c-41e62100e722)\"}"
     },
     {
       "operation": "read",
       "type": "text",
-      "data": "UpdateCollectionIntervalsResponse={\"resourcePath\":\"/t;<%= tenant_id %>/f;<%= feed_id %>/r;Local~~/r;Local~%2Fsubsystem%3D<%= tenant_id %>-wildfly-agent\",\"destinationSessionId\":\"xlrBtN7CfOPEFbAFsCzgn3p7wq2Ykf7OEFqPmP-F\",\"status\":\"OK\",\"message\":\"Performed [Update Collection Intervals] on a [DMR Nodes] given by Inventory path [/t;<%= tenant_id %>/f;<%= feed_id %>/r;Local~~/r;Local~%2Fsubsystem%3D<%= tenant_id %>-wildfly-agent]\"}"
+      "data": "UpdateCollectionIntervalsResponse={\"resourcePath\":\"/t;<%= tenant_id %>/f;<%= feed_id %>/r;Local~~/r;Local~%2Fsubsystem%3D<%= tenant_id %>-wildfly-agent\",\"destinationSessionId\":\"xxzcjha-UjNPu2hj7UTh70HESsWdFtCS1dauhrO8\",\"status\":\"OK\",\"message\":\"Performed [Update Collection Intervals] on a [Agent[DMR]] given by Inventory path [/t;<%= tenant_id %>/f;<%= feed_id %>/r;Local~~/r;Local~%2Fsubsystem%3D<%= tenant_id %>-wildfly-agent]\",\"serverRefreshIndicator\":\"RELOAD-REQUIRED\"}"
     }
   ]
 ]
