@@ -14,7 +14,7 @@ module Hawkular::Client::RSpec
         password: 'password'
       }
       ::RSpec::Mocks.with_temporary_scope do
-        mock_inventory_client '0.17.2.Final'
+        mock_inventory_client '0.26.0.Final'
         mock_metrics_version
         @hawkular_client = Hawkular::Client.new(entrypoint: HOST, credentials: @creds, options: { tenant: 'hawkular' })
         @hawkular_client.inventory
@@ -86,7 +86,7 @@ module Hawkular::Client::RSpec
     context 'and Inventory client', vcr: { decode_compressed_response: true } do
       before(:all) do
         ::RSpec::Mocks.with_temporary_scope do
-          mock_inventory_client '0.17.2.Final'
+          mock_inventory_client '0.26.0.Final'
           @client = Hawkular::Inventory::Client.create(entrypoint: HOST,
                                                        credentials: @creds,
                                                        options: { tenant: 'hawkular' })
@@ -99,13 +99,6 @@ module Hawkular::Client::RSpec
 
         expect(feeds1).to match_array(feeds2)
         @state[:feed] = feeds1[0] unless feeds1[0].nil?
-      end
-
-      it 'Should list the same resource types' do
-        types1 = @client.list_resource_types
-        types2 = @hawkular_client.inventory_list_resource_types
-
-        expect(types1).to match_array(types2)
       end
 
       it 'Should list same types when param is given' do
@@ -130,24 +123,6 @@ module Hawkular::Client::RSpec
         resources2 = @hawkular_client.inventory_list_resources_for_type(path)
 
         expect(resources1).to match_array(resources2)
-      end
-
-      it 'Should both create and delete feed' do
-        feed_id1 = 'feed_1123sdn'
-        feed_id2 = 'feed_1124sdn'
-        @client.create_feed feed_id1
-        @hawkular_client.inventory_create_feed feed_id2
-
-        feed_list = @client.list_feeds
-        expect(feed_list).to include(feed_id1)
-        expect(feed_list).to include(feed_id2)
-
-        @client.delete_feed feed_id2
-        @hawkular_client.inventory.delete_feed feed_id1
-
-        feed_list = @hawkular_client.inventory_list_feeds
-        expect(feed_list).not_to include(feed_id1)
-        expect(feed_list).not_to include(feed_id2)
       end
     end
 
@@ -234,16 +209,12 @@ module Hawkular::Client::RSpec
       end
 
       it 'Should both work the same way', :websocket do
-        tenant_id = @hawkular_client.inventory_get_tenant
-        tenant_id2 = @hawkular_client.inventory.get_tenant
-        expect(tenant_id).to eql(tenant_id2)
-
         feed_id = @hawkular_client.inventory.list_feeds.first
         wf_server_resource_id = 'Local~~'
         alerts_war_resource_id = 'Local~%2Fdeployment%3Dhawkular-alerts-actions-email.war'
 
         WebSocketVCR.record(example, self) do
-          path = Hawkular::Inventory::CanonicalPath.new(tenant_id: tenant_id,
+          path = Hawkular::Inventory::CanonicalPath.new(tenant_id: 'hawkular',
                                                         feed_id: feed_id,
                                                         resource_ids: [wf_server_resource_id, alerts_war_resource_id])
 
