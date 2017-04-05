@@ -222,9 +222,9 @@ module Hawkular::Inventory
         .select { |rt| rt['children'] && rt['children']['operationType'] }
         .flat_map { |rt| rt['children']['operationType'] }
         .each do |ot|
-          hash = optype_json_to_hash(ot)
-          od = OperationDefinition.new hash
-          res[od.name] = od
+        hash = optype_json_to_hash(ot)
+        od = OperationDefinition.new hash
+        res[od.name] = od
       end
       res
     end
