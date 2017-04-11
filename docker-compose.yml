@@ -1,5 +1,6 @@
 hawkular:
-  image: "hawkular/hawkular-services:latest"
+  # TODO: put this back to hawkular/hawkular-services:latest once everything is merged in the h-services and the docker image is released
+  image: "jotak/hawkular-services:latest"
   ports:
     - "8080:8080"
     - "8443:8443"
