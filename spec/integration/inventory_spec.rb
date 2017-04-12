@@ -312,6 +312,12 @@ module Hawkular::Inventory::RSpec
           expect(resource.properties['Driver Name']).to eq('h2')
         end
 
+        it 'Should get resource type' do
+          resource_type = @client.get_resource_type(wildfly_type.to_s)
+          expect(resource_type.id).to eq('WildFly Server')
+          expect(resource_type.name).to eq('WildFly Server')
+        end
+
         it 'Should list operation definitions of given resource type' do
           operation_definitions = @client.list_operation_definitions(wildfly_type.to_s)
 

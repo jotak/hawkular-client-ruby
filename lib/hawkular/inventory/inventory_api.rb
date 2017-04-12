@@ -232,6 +232,19 @@ module Hawkular::Inventory
       Resource.new(entity_hash)
     end
 
+    # Return the resource type object for the passed path
+    # @param [String] resource_type_path Canonical path of the resource type to fetch.
+    def get_resource_type(resource_type_path)
+      path = CanonicalPath.parse_if_string(resource_type_path)
+      raw_hash = get_raw_entity_hash(path)
+      unless raw_hash
+        exception = HawkularException.new("Resource type not found: #{resource_type_path}")
+        fail exception
+      end
+      entity_hash = entity_json_to_hash(-> (_) { path }, raw_hash, false)
+      ResourceType.new(entity_hash)
+    end
+
     # Return the metric type object for the passed path
     # @param [String] metric_type_path Canonical path of the metric type to fetch.
     def get_metric_type(metric_type_path)
