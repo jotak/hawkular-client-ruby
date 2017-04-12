@@ -33,7 +33,7 @@ http_interactions:
       Pragma:
       - no-cache
       Date:
-      - Wed, 12 Apr 2017 08:02:34 GMT
+      - Wed, 12 Apr 2017 15:07:47 GMT
       Connection:
       - keep-alive
       Content-Type:
@@ -44,5 +44,5 @@ http_interactions:
       encoding: UTF-8
       string: '{"feed":["<%= feed_uuid %>"],"module":["inventory"]}'
     http_version: 
-  recorded_at: Wed, 12 Apr 2017 08:02:34 GMT
+  recorded_at: Wed, 12 Apr 2017 15:07:47 GMT
 recorded_with: VCR 3.0.3
