@@ -247,6 +247,26 @@ module Hawkular::Inventory::RSpec
           expect(metrics.size).to be(8)
         end
 
+        it 'Should list metrics of given metric type' do
+          type_path = Hawkular::Inventory::CanonicalPath.new(
+            feed_id: feed_id,
+            metric_type_id: hawk_escape_id('Platform_File Store_Total Space'))
+          metrics = @client.list_metrics_for_metric_type(type_path)
+
+          expect(metrics.size).to be >= 2
+        end
+
+        it 'Should have the same requested metric type id' do
+          metric_type_id = 'Server Availability~Server Availability'
+          type_path = Hawkular::Inventory::CanonicalPath.new(
+            feed_id: feed_id,
+            metric_type_id: hawk_escape_id(metric_type_id))
+          metrics = @client.list_metrics_for_metric_type(type_path)
+
+          expect(metrics.size).to be > 0
+          expect(metrics).to all(have_attributes(type_id: metric_type_id))
+        end
+
         it 'Should return config data of given resource' do
           resource_path = Hawkular::Inventory::CanonicalPath.new(
             feed_id: feed_id,
@@ -255,6 +275,15 @@ module Hawkular::Inventory::RSpec
 
           expect(config['value']['Server State']).to eq('running')
           # expect(config['value']['Product Name']).to eq('Hawkular')
+        end
+
+        it 'Should return empty config data of fake resource' do
+          resource_path = Hawkular::Inventory::CanonicalPath.new(
+            feed_id: feed_id,
+            resource_ids: ['fake'])
+          config = @client.get_config_data_for_resource(resource_path)
+
+          expect(config).to be_empty
         end
 
         it 'Should return config data of given nested resource' do

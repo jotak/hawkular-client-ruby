@@ -138,7 +138,8 @@ module Hawkular::Inventory
     def get_config_data_for_resource(resource_path)
       path = CanonicalPath.parse_if_string(resource_path)
       raw_hash = get_raw_entity_hash(path)
-      { 'value' => fetch_properties(raw_hash) } if raw_hash
+      return {} unless raw_hash
+      { 'value' => fetch_properties(raw_hash) }
     end
 
     # Obtain the child resources of the passed resource. In case of a WildFly server,
@@ -153,6 +154,33 @@ module Hawkular::Inventory
       fail 'Feed id must be given' unless feed_id
       entity_hash = get_raw_entity_hash(path)
       extract_child_resources([], path.to_s, entity_hash, recursive) if entity_hash
+    end
+
+    # List the metrics for the passed metric type. If feed is not passed in the path,
+    # all the metrics across all the feeds of a given type will be retrieved
+    # @param [String] metric_type_path Canonical path of the resource type to look for. Can be obtained from
+    #   {MetricType}.path. Must not be nil. The tenant_id in the canonical path doesn't have to be there.
+    # @return [Array<Metric>] List of metrics. Can be empty
+    def list_metrics_for_metric_type(metric_type_path)
+      path = CanonicalPath.parse_if_string(metric_type_path)
+      feed_id = path.feed_id
+      fail 'Feed id must be given' unless feed_id
+      metric_type_id = URI.unescape(path.metric_type_id)
+      fail 'Metric type id must be given' unless metric_type_id
+
+      feed_path = feed_cp(feed_id)
+      escaped_for_regex = Regexp.quote("|#{metric_type_id}|")
+      response = http_post(
+        '/strings/raw/query',
+        fromEarliest: true,
+        order: 'DESC',
+        tags: "#{feed_path.to_tags},type:r,mtypes:.*#{escaped_for_regex}.*")
+      structures = extract_structures_from_body(response)
+      return [] if structures.empty?
+
+      # Now find each collected resource path in their belonging InventoryStructure
+      metric_type = get_metric_type(path)
+      extract_metrics_for_type(structures, feed_path, metric_type)
     end
 
     # List metric (definitions) for the passed resource. It is possible to filter down the
@@ -202,6 +230,19 @@ module Hawkular::Inventory
       end
       entity_hash = entity_json_to_hash(-> (_) { path }, raw_hash, fetch_properties)
       Resource.new(entity_hash)
+    end
+
+    # Return the metric type object for the passed path
+    # @param [String] metric_type_path Canonical path of the metric type to fetch.
+    def get_metric_type(metric_type_path)
+      path = CanonicalPath.parse_if_string(metric_type_path)
+      raw_hash = get_raw_entity_hash(path)
+      unless raw_hash
+        exception = HawkularException.new("Metric type not found: #{metric_type_path}")
+        fail exception
+      end
+      entity_hash = entity_json_to_hash(-> (_) { path }, raw_hash, false)
+      MetricType.new(entity_hash)
     end
 
     # List operation definitions (types) for a given resource type
@@ -347,13 +388,33 @@ module Hawkular::Inventory
             fullpath = CanonicalPath.parse("#{root_path}/#{relative_path}")
             resource_json = find_entity_in_tree(fullpath, inventory_structure)
             if resource_json
-              resource = entity_json_to_hash(-> (id) { root_path.down(id) }, resource_json, fetch_properties)
+              resource = entity_json_to_hash(-> (_) { fullpath }, resource_json, fetch_properties)
               matching_resources.push(Resource.new(resource))
             end
           end
         end
       end
       matching_resources
+    end
+
+    def extract_metrics_for_type(structures, feed_path, metric_type)
+      matching_metrics = []
+      structures.each do |full_struct|
+        next unless full_struct.key? 'metricTypesIndex'
+        next unless full_struct['metricTypesIndex'].key? metric_type.id
+        inventory_structure = full_struct['inventoryStructure']
+        root_path = feed_path.down(inventory_structure['data']['id'])
+        full_struct['metricTypesIndex'][metric_type.id].each do |relative_path|
+          # Search for child
+          fullpath = CanonicalPath.parse("#{root_path}/#{relative_path}")
+          metric_json = find_entity_in_tree(fullpath, inventory_structure)
+          if metric_json
+            metric_hash = entity_json_to_hash(-> (_) { fullpath }, metric_json, false)
+            matching_metrics.push(Metric.new(metric_hash, metric_type))
+          end
+        end
+      end
+      matching_metrics
     end
 
     def extract_structure_from_body(response_body_array)
