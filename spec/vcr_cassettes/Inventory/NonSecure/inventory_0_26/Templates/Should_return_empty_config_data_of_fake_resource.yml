@@ -1,11 +1,11 @@
 ---
 http_interactions:
 - request:
-    method: get
-    uri: http://<%= super_secret_username %>:<%= super_secret_password %>@localhost:8080/hawkular/metrics/strings/tags/module:inventory,feed:*
+    method: post
+    uri: http://<%= super_secret_username %>:<%= super_secret_password %>@localhost:8080/hawkular/metrics/strings/raw/query
     body:
-      encoding: US-ASCII
-      string: ''
+      encoding: UTF-8
+      string: '{"fromEarliest":true,"order":"DESC","tags":"module:inventory,feed:<%= feed_uuid %>,type:r,id:fake"}'
     headers:
       Accept:
       - application/json
@@ -17,10 +17,12 @@ http_interactions:
       - hawkular
       Content-Type:
       - application/json
+      Content-Length:
+      - '95'
   response:
     status:
-      code: 200
-      message: OK
+      code: 204
+      message: No Content
     headers:
       Expires:
       - '0'
@@ -33,16 +35,10 @@ http_interactions:
       Pragma:
       - no-cache
       Date:
-      - Wed, 12 Apr 2017 08:02:32 GMT
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '48'
+      - Wed, 12 Apr 2017 08:02:35 GMT
     body:
       encoding: UTF-8
-      string: '{"feed":["1edb7cbc3ab1"],"module":["inventory"]}'
+      string: ''
     http_version: 
-  recorded_at: Wed, 12 Apr 2017 08:02:32 GMT
+  recorded_at: Wed, 12 Apr 2017 08:02:35 GMT
 recorded_with: VCR 3.0.3
