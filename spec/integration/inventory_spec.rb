@@ -265,6 +265,7 @@ module Hawkular::Inventory::RSpec
 
           expect(metrics.size).to be > 0
           expect(metrics).to all(have_attributes(type_id: metric_type_id))
+          expect(metrics.map(&:name)).to all(include('Server Availability'))
         end
 
         it 'Should return config data of given resource' do

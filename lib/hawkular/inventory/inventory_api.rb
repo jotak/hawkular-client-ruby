@@ -369,6 +369,14 @@ module Hawkular::Inventory
           end
         end
       end
+      if fullpath.metric_id
+        if (entity.key? 'children') && (entity['children'].key? 'metric')
+          unescaped = URI.unescape(fullpath.metric_id)
+          entity = entity['children']['metric'].find { |r| r['data']['id'] == unescaped }
+        else
+          entity = nil
+        end
+      end
       entity
     end
 

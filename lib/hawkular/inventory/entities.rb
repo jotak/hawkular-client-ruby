@@ -256,8 +256,8 @@ module Hawkular::Inventory
       ret += "/e;#{@environment_id}" unless @environment_id.nil?
       ret += "/rt;#{@resource_type_id}" unless @resource_type_id.nil?
       ret += "/mt;#{@metric_type_id}" unless @metric_type_id.nil?
-      ret += "/m;#{@metric_id}" unless @metric_id.nil?
       ret += resources_chunk.to_s
+      ret += "/m;#{@metric_id}" unless @metric_id.nil?
       ret
     end
 
