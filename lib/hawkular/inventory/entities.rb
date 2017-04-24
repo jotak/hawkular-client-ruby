@@ -189,30 +189,34 @@ module Hawkular::Inventory
       path.is_a?(CanonicalPath) ? path : CanonicalPath.parse(path)
     end
 
+    def copy_hash
+      hash = to_h
+      hash[:resource_ids] = hash[:resource_ids].clone unless hash[:resource_ids].nil?
+      hash
+    end
+
     # Move up to the parent path of the resource. resource_ids set to empty array when there is no parent.
     # @return CanonicalPath corresponding to the direct ancestor of the resource represented by this path object.
     def up
-      hash = to_h
-      if @resource_ids.nil? || (@resource_ids.empty?)
-        hash[:resource_ids] = []
-      else
-        hash[:resource_ids] = @resource_ids.take(@resource_ids.length - 1)
-      end
+      hash = copy_hash
+      res = hash[:resource_ids] || []
+      res = res.take(res.length - 1) unless res.empty?
+      hash[:resource_ids] = res
       CanonicalPath.new(hash)
     end
 
     # Add resource down to the current path
     # @return a new CanonicalPath based on the current one
     def down(resource)
-      hash = to_h
-      hash[:resource_ids] = (@resource_ids || []) << hawk_escape_id(resource)
+      hash = copy_hash
+      hash[:resource_ids] = (hash[:resource_ids] || []) << hawk_escape_id(resource)
       CanonicalPath.new(hash)
     end
 
     # Set resource type to the current path
     # @return a new CanonicalPath based on the current one
     def resource_type(resource_type)
-      hash = to_h
+      hash = copy_hash
       hash[:resource_type_id] = hawk_escape_id(resource_type)
       CanonicalPath.new(hash)
     end
@@ -220,17 +224,8 @@ module Hawkular::Inventory
     # Set metric type to the current path
     # @return a new CanonicalPath based on the current one
     def metric_type(metric_type)
-      hash = to_h
+      hash = copy_hash
       hash[:metric_type_id] = hawk_escape_id(metric_type)
-      CanonicalPath.new(hash)
-    end
-
-    # Adds a resource to the path.
-    # @return CanonicalPath referring to resource_id using current as its ancestor.
-    def to_resource(resource_id)
-      hash = to_h
-      hash[:resource_ids] = [] if hash[:resource_ids].nil?
-      hash[:resource_ids].push resource_id
       CanonicalPath.new(hash)
     end
 
