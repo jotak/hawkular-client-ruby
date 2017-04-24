@@ -117,7 +117,7 @@ module Hawkular::Inventory
       fail 'Resource type must be given' unless path.resource_type_id
 
       # Fetch metrics by tag
-      feed_path = feed_cp(path.feed_id)
+      feed_path = feed_cp(URI.unescape(path.feed_id))
       resource_type_id = URI.unescape(path.resource_type_id)
       escaped_for_regex = Regexp.quote("|#{resource_type_id}|")
       response = http_post(
@@ -163,10 +163,10 @@ module Hawkular::Inventory
     # @return [Array<Metric>] List of metrics. Can be empty
     def list_metrics_for_metric_type(metric_type_path)
       path = CanonicalPath.parse_if_string(metric_type_path)
-      feed_id = path.feed_id
-      fail 'Feed id must be given' unless feed_id
+      fail 'Feed id must be given' unless path.feed_id
+      fail 'Metric type id must be given' unless path.metric_type_id
+      feed_id = URI.unescape(path.feed_id)
       metric_type_id = URI.unescape(path.metric_type_id)
-      fail 'Metric type id must be given' unless metric_type_id
 
       feed_path = feed_cp(feed_id)
       escaped_for_regex = Regexp.quote("|#{metric_type_id}|")
