@@ -35,7 +35,7 @@ http_interactions:
       Pragma:
       - no-cache
       Date:
-      - Wed, 12 Apr 2017 15:07:48 GMT
+      - Tue, 25 Apr 2017 07:44:58 GMT
       Connection:
       - keep-alive
       Content-Type:
@@ -44,7 +44,7 @@ http_interactions:
       - '999'
     body:
       encoding: UTF-8
-      string: '[{"id":"inventory.<%= feed_uuid %>.rt.WildFly Server","data":[{"timestamp":1492009343060,"value":"H4sIAAAAAAAAAO1WUW/TMBD+K5afXYnnvaBBhyhiBTXdEEITcuPrYsmxg33uqKb9d85x26RdthVUCR54SfzdOfc5d98ld8+1XYFF59cF+lhi9MDP7jmuG7pzD8FFX8I8QcGVRJm8jXcNeNQQCD0IrhXt/aKNemfWrAC/Ak+7raxhyO4i3jptbzfP2tLVG0SwrGi7B5toEolE7WxLf/bt/vkDjKExbt0R7/CxhARfotBBLgywHLqmxPXohnyno76wTzIPuU5H/GE866gyOF3wGRgnVRd/h48WSQp/YVHj+mWFNNITDYJPggo7VhuNeY5R8JU0se0Lqcg4ctase12ycM6k7oBQet0kwSbZV4AVeEYXFlrps1C5aBQLKD0ybZmP1hIFq50Cdj6+nEy/f5p+/MruKrBMI6PuS1tDG3spo8HrfA6+lCakhvTwI2oP9G6thU4aA4zK6Ck5OMq0o9LZpb4dOu9RMSmodwYep++w1jfHlDu//JCKB32nVFqINezRZXw6iqKKqNyd7Uh6ln9U0KhroI09deg28ftinuddSbQBSE8qMHRMGuPumCxRr4CR1UKZ9rc+5aW2j0X2alC0G6G/1FJF7p9eRy1g2ySgmFxi22Q55a//jsKLGBqwvS9aZ/ivgKcUcMoCXFl1MAf0LMf3+o34rTLkb2zM40pRVlDLP6nFNJ+4vQn+2TtFIxnbWPeg4NfgQ67NdiX4bPNHuaQ/SvrG9aHgeQJjBUpsldmHYivUzr2HBb+6moxTNtNN8PeupomDilim2ZHsBwbBp+mvtn2h3To9GXBTmd1S8DcuEte5ogIESuwBFnxS1xHTmEO+bk12y946iyQ1mi3P9mEnq6HyDGmr7YAwIcH83NaN1Oh1OT+wP/wC/lm7AjkLAAA="}]}]'
+      string: '[{"id":"inventory.<%= feed_uuid %>.rt.WildFly Server","data":[{"timestamp":1493106281622,"value":"H4sIAAAAAAAAAO1WUW/TMBD+K5afXYnnvaBBhyhiBTXdEEITcuPrYsmxg33uqKb9d85x26RdthVUCR54SfzdOfc5d98ld8+1XYFF59cF+lhi9MDP7jmuG7pzD8FFX8I8QcGVRJm8jXcNeNQQCD0IrhXt/aKNemfWrAC/Ak+7raxhyO4i3jptbzfP2tLVG0SwrGi7B5toEolE7WxLf/bt/vkDjKExbt0R7/CxhARfotBBLgywHLqmxPXohnyno76wTzIPuU5H/GE866gyOF3wGRgnVRd/h48WSQp/YVHj+mWFNNITDYJPggo7VhuNeY5R8JU0se0Lqcg4ctase12ycM6k7oBQet0kwSbZV4AVeEYXFlrps1C5aBQLKD0ybZmP1hIFq50Cdj6+nEy/f5p+/MruKrBMI6PuS1tDG3spo8HrfA6+lCakhvTwI2oP9G6thU4aA4zK6Ck5OMq0o9LZpb4dOu9RMSmodwYep++w1jfHlDu//JCKB32nVFqINezRZXw6iqKKqNyd7Uh6ln9U0KhroI09deg28ftinuddSbQBSE8qMHRMGuPumCxRr4CR1UKZ9rc+5aW2j0X2alC0G6G/1FJF7p9eRy1g2ySgmFxi22Q55a//jsKLGBqwvS9aZ/ivgKcUcMoCXFl1MAf0LMf3+o34rTLkb2zM40pRVlDLP6nFNJ+4vQn+2TtFIxnbWPeg4NfgQ67NdiX4bPNHuaQ/SvrG9aHgeQJjBUpsldmHYivUzr2HBb+6moxTNtNN8PeupomDilim2ZHsBwbBp+mvtn2h3To9GXBTmd1S8DcuEte5ogIESuwBFnxS1xHTmEO+bk12y946iyQ1mi3P9mEnq6HyDGmr7YAwIcH83NaN1Oh1OT+wP/wC/lm7AjkLAAA="}]}]'
     http_version: 
-  recorded_at: Wed, 12 Apr 2017 15:07:48 GMT
+  recorded_at: Tue, 25 Apr 2017 07:44:58 GMT
 recorded_with: VCR 3.0.3

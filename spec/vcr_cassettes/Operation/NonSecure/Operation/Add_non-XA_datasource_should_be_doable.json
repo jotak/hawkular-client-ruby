@@ -3,7 +3,7 @@
     {
       "operation": "read",
       "type": "text",
-      "data": "WelcomeResponse={\"sessionId\":\"8zbn_vpN8gab4fG0XiTZGEELk3Oi05geTg9ufenD\"}"
+      "data": "WelcomeResponse={\"sessionId\":\"UM0mXQIplIX57L133el72F3OaX5xnfRJU3cCTbIc\"}"
     },
     {
       "operation": "write",
@@ -12,12 +12,12 @@
     {
       "operation": "read",
       "type": "text",
-      "data": "GenericSuccessResponse={\"message\":\"The request has been forwarded to feed [<%= feed_id %>] (MessageId=ID:701a42b8-19df-11e7-a64c-41e62100e722)\"}"
+      "data": "GenericSuccessResponse={\"message\":\"The request has been forwarded to feed [<%= feed_id %>] (MessageId=ID:26cbc276-298b-11e7-8b20-49667d8025b6)\"}"
     },
     {
       "operation": "read",
       "type": "text",
-      "data": "AddDatasourceResponse={\"xaDatasource\":false,\"datasourceName\":\"CreatedByRubyDS<%= random_uuid %>\",\"resourcePath\":\"/t;<%= tenant_id %>/f;<%= feed_id %>/r;Local~~\",\"destinationSessionId\":\"8zbn_vpN8gab4fG0XiTZGEELk3Oi05geTg9ufenD\",\"status\":\"OK\",\"message\":\"Added Datasource: CreatedByRubyDS<%= random_uuid %>\",\"serverRefreshIndicator\":\"RELOAD-REQUIRED\"}"
+      "data": "AddDatasourceResponse={\"xaDatasource\":false,\"resourcePath\":\"/t;<%= tenant_id %>/f;<%= feed_id %>/r;Local~~\",\"destinationSessionId\":\"UM0mXQIplIX57L133el72F3OaX5xnfRJU3cCTbIc\",\"status\":\"ERROR\",\"message\":\"Could not perform [Add] on a [Datasource] given by inventory path [/t;<%= tenant_id %>/f;<%= feed_id %>/r;Local~~] requested on [2017-04-25T07:45Z]: java.lang.IllegalStateException: Command not allowed because the agent is immutable\"}"
     }
   ]
 ]

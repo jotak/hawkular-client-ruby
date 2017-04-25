@@ -3,7 +3,7 @@
     {
       "operation": "read",
       "type": "text",
-      "data": "WelcomeResponse={\"sessionId\":\"7rPZ7ZVhzdvL-NUyj5QNxs0f4SCsMIVOJghy2iib\"}"
+      "data": "WelcomeResponse={\"sessionId\":\"bzgMtq8bqhg1j3Cdz-mL6ycsoo64cxJizk2IBTPl\"}"
     },
     {
       "operation": "write",
@@ -12,12 +12,12 @@
     {
       "operation": "read",
       "type": "text",
-      "data": "GenericSuccessResponse={\"message\":\"The request has been forwarded to feed [<%= feed_id %>] (MessageId=ID:7c63676f-19df-11e7-a64c-41e62100e722)\"}"
+      "data": "GenericSuccessResponse={\"message\":\"The request has been forwarded to feed [<%= feed_id %>] (MessageId=ID:32fd8d9d-298b-11e7-8b20-49667d8025b6)\"}"
     },
     {
       "operation": "read",
       "type": "text",
-      "data": "RemoveJdbcDriverResponse={\"resourcePath\":\"/t;<%= tenant_id %>/f;<%= feed_id %>/r;Local~~/r;Local~%2Fsubsystem%3Ddatasources%2Fjdbc-driver%3DCreatedByRubyDrivernot_so_random_uuid\",\"destinationSessionId\":\"7rPZ7ZVhzdvL-NUyj5QNxs0f4SCsMIVOJghy2iib\",\"status\":\"ERROR\",\"message\":\"Could not perform [Remove] on a [JDBC Driver] given by inventory path [/t;<%= tenant_id %>/f;<%= feed_id %>/r;Local~~/r;Local~%2Fsubsystem%3Ddatasources%2Fjdbc-driver%3DCreatedByRubyDrivernot_so_random_uuid] requested on [2017-04-05T09:08Z]: org.<%= tenant_id %>.dmr.api.OperationFailureException: Could not perform operation [remove]: WFLYCTL0216: Management resource '[\\n    (\\\"subsystem\\\" => \\\"datasources\\\"),\\n    (\\\"jdbc-driver\\\" => \\\"CreatedByRubyDrivernot_so_random_uuid\\\")\\n]' not found\"}"
+      "data": "RemoveJdbcDriverResponse={\"resourcePath\":\"/t;<%= tenant_id %>/f;<%= feed_id %>/r;Local~~/r;Local~%2Fsubsystem%3Ddatasources%2Fjdbc-driver%3DCreatedByRubyDrivernot_so_random_uuid\",\"destinationSessionId\":\"bzgMtq8bqhg1j3Cdz-mL6ycsoo64cxJizk2IBTPl\",\"status\":\"ERROR\",\"message\":\"Could not perform [Remove] on a [JDBC Driver] given by inventory path [/t;<%= tenant_id %>/f;<%= feed_id %>/r;Local~~/r;Local~%2Fsubsystem%3Ddatasources%2Fjdbc-driver%3DCreatedByRubyDrivernot_so_random_uuid] requested on [2017-04-25T07:45Z]: java.lang.IllegalStateException: Command not allowed because the agent is immutable\"}"
     }
   ]
 ]

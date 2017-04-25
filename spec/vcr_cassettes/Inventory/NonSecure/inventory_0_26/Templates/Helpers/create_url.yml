@@ -21,11 +21,13 @@ http_interactions:
       - '23'
   response:
     status:
-      code: 200
-      message: OK
+      code: 404
+      message: Not Found
     headers:
       Expires:
       - '0'
+      Connection:
+      - keep-alive
       Cache-Control:
       - no-cache, no-store, must-revalidate
       X-Powered-By:
@@ -34,17 +36,13 @@ http_interactions:
       - WildFly/10
       Pragma:
       - no-cache
-      Date:
-      - Wed, 12 Apr 2017 15:07:45 GMT
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/hawkular.1.0.0+json
       Content-Length:
-      - '44'
+      - '0'
+      Date:
+      - Tue, 25 Apr 2017 07:44:54 GMT
     body:
       encoding: UTF-8
-      string: Url URL[url='http://bsd.de'] already exists.
+      string: ''
     http_version: 
-  recorded_at: Wed, 12 Apr 2017 15:07:45 GMT
+  recorded_at: Tue, 25 Apr 2017 07:44:54 GMT
 recorded_with: VCR 3.0.3
