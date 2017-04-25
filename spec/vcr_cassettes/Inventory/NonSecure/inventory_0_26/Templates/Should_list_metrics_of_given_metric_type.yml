@@ -36,18 +36,18 @@ http_interactions:
       Pragma:
       - no-cache
       Date:
-      - Tue, 25 Apr 2017 07:44:58 GMT
+      - Tue, 25 Apr 2017 14:35:57 GMT
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Content-Length:
-      - '1639'
+      - '1643'
     body:
       encoding: UTF-8
-      string: '[{"id":"inventory.<%= feed_uuid %>.r.platform~/OPERATING_SYSTEM=<%= feed_uuid %>_OperatingSystem","data":[{"timestamp":1493106278954,"value":"H4sIAAAAAAAAAO2bXW/aMBSG/0oUqXedUhI+tqJedB2dkMZAhF5UCCEvMW20JEbGYUMV+e2zCZA4mABdPtjITdM4xuech/c4jnN4ky13Dl2C8EIn2DOIh6F8+yaTxZQeZQxnyMMGlK9lExDArkwxmkJMLDijZ8tr2TJpv6kNyARhx1e6vVb/ftD+/nWsP+uDVufuB/hUr0w0qKnmx3GXfhQQy33RFzMCHTqsCxxm6EAv5JEXRBvWJl0DOduzjY8D6nIPkFc6mkKar+DXT88GWJk0o2MrmDR7a2dDO1fqzdoUHc94tWwTQ5cF60CCLUO+Hb4lx99p+31/yBl6J5KR3xn4ux5KwdVxDyMDzmbSA/JcEuKLNyfxCmI6jpaTSGvjDW3YGDaQbUODWMhtuwTiObDlW9ezbZ7rcnl9LkCDg/TQe5K+IWCGSHcv5AQ1ODCmvSf6d238XwXL3Jfu5/TiC9yBG7uYN2Bmnh5CB46FPApnncNzwzvxKo/tb62xPuj2W3eKCeeKA6a0hzKBJsLgwytyIjwfLRtKOp3FoTTc03mU2TTKjDO6zHzxE+gR3HjlhuzGA0SALelTYETY8o1ZaDQKMPCBna0Nnl/i/w3hpxn4wU54xLHWzBkH9t4BeXSYczZQMULk6HRnnct0D1GU6V4U4TLdj4Dq70nsS0xhv0zWHFiWabkPX6fV6faf7zrQQXgRotmeZ5OP6+GLz0QufF4+Qdv4fg4se6WTOCPBlSwkFPeD6mdr7wzz8TDRYA6L04y1ZkhyM6mdTDHDNOz1uw8tXe/27252NrkQloY32d0bt1bOIB0jGHjpbJ0cs/0pOpFGN1eiTVnohjNOhbOxdVa6qQh1U7k03VRK3ZwGTBXqRr003ailbk4Dpgl1o12abrRSN6cBqwp1U7003VRL3ZwGrCbUTe3SdFMrdXMasLpQN/VL00291M1pwBpC3TQuTTeN/0s3o6Cuq+USiywOIzWQO7FePMYGudtA2djJEVIXvFVZ2QNyCbBciKW2uflgB1CvXLhq4erA2BePkQ13DIsSYFWxNmu7JvzNDMW3Vm+HMm5uv/4r9TEugCvtS5IE6CeCnTzabz0kZbe3+oXZ4zqEm+9puBJu8tO+9NyEc/o3eC9H/+FLRPIxtn5Bnaoxn0MYTggpENxmNO16k4Lf0fEqKY+npjyelvJ41ZTHq6U8Xj3l8RryiJu1BbPOwTJDKmGnubpDXdU+R21TW3/jae2LuCovubwwaSqLlZwW53i82DTqtOhVSvpTvpJJ5Dtm4izE72kE4e+8gfvfEAhe+olvsly1QK433KwAHe9BnF1iBUN+i4NiwTAPigPj5xK8f0KAwoVV5CEm7SVWVgA4I/H49z0gpbrYyyOyShGRqXlEphYRmZZHZFoRkVXziKxaRGS1PCKrFRFZPY/I6kVE1sgjssZxkSU+4oh+jnQGT2ix3yftWepyZZvlWjehvrRc7OZC5hxWu7EIR8vlH6YdghrqPAAA"}]}]'
+      string: '[{"id":"inventory.<%= feed_uuid %>.r.platform~/OPERATING_SYSTEM=<%= feed_uuid %>_OperatingSystem","data":[{"timestamp":1493124041955,"value":"H4sIAAAAAAAAAO2bbW/aOhTHv0oUqe96lfIQ0Ir6orejE9IYiNAXE0LINzFttMRGxmFDFfnsswmQOJgAXR64I2+axjE+5/z4H8dxDu+qjRYQUUyWBiWeST0C1ft3lS5n7KgSOMceMaF6q1qAAn5lRvAMEmrDOTtb3aq2xfrNHECnmLi+1uu3B4/DzrcvE+O7MWx3H+4+mU0d1JqN+rQ+6bGPAmqjV2M5p9BlwyLgckNHemGPvmLWsDGJTOzuzrY+DpnLfUDf2Ggabb2Bnz88BxBt2oqOrRHa6m+cDe3cVO82pth45pvtWAQiHqwLKbFN9X70nhx/t+MP/JFg6INIxn536O97qARXJ32CTTifK0/YQzTEF29O4hXEdBotN5HW1hvWsDVsYseBJrUx6iAKyQI46j3yHEfkulrdXgrQ4KA89V+UrxhYIdL9CzlBDQ6caf+F/d0Y/7+C5e4rjwt28RXuwY1dzBswN88OoQOnQh6Hs87xueGDeLXnztf2xBj2Bu0HzYILzQUz1kObQgsT8M8bdiM8n20HKgabxaEyOtB5nNk0yo1zutx88RPoCdxE5YbsJkNMgaMYM2BG2IqNWWg0CjDwgZ9tDF5e4v8J4Zc5+I+fiIhjrZkzDux9APL4OOdsoBKM6cnpzjuX6R6iKNO9KMJlup8A1T+Q2NeYwn6ZrDmwLNPyEL5uu9sbfH/oQheTZYhmd55NPm6GLz4ThfBF+QRtk8cFsJ21TuKMJFeykFDcD6afnb0LzMfjRIM5LE4z1pohye2kdjbFDNOwP+g9tQ2jN3i429vkwkQZ3WV3b9xZuYB0jGAQpbNzcsL3p9hEGt1ciTZloRvBOBPO1tZF6aYi1U3l2nRTKXVzHrCqVDfVa9NNtdTNecBqUt3Urk03tVI35wGrS3VTvzbd1EvdnAdMl+pGvzbd6KVuzgPWkOqmcW26aZS6OQ9YU6qb5rXppvl36WYc1HW1EbXp8jhSE6Op/epxNhjtAuVjJ0fIXPDWZWVPGFFgI0iUjrX9YBcwrxBctwh1YPyLJ9iBe4ZlCbCuWJt3kAV/cUPxrdX7kUpau6//pvocF8BN7XOSBNgngp081m8zJGN3sPqF2xM6hJvvabgSbvKzvuzcggv2N3gvx/4RS0TyMbZ5QZ2qMV9AGE4IKRDcZTTvmoLf0fEqKY9XTXm8Wsrj1VMeT095vEbK4zXVsTBrS2ado2WGTMJua32HutH/jdpmtv7EU/2zvCovubwwaSqLlZwW53i82DTqtOxVSvpTvpZJ5Htm4izk72kk4e+9gfvbEEhe+slvskK1QK433KwAne5BnF1iBUN+i4NiwXAPigPj5xK8f0aA0oVV5CEm7SVWVgAEI/H4Dz0gpbrYyyOyShGRVfOIrFpEZLU8IqsVEVk9j8jqRUSm5xGZXkRkjTwiaxQRWTOPyJqnRZb4iCP7OdIFPKHFfp90YKkrlG2Wa92E+tJysZsLmUtY7cYiHK9WvwGHkfIC6jwAAA=="}]}]'
     http_version: 
-  recorded_at: Tue, 25 Apr 2017 07:44:58 GMT
+  recorded_at: Tue, 25 Apr 2017 14:35:57 GMT
 - request:
     method: post
     uri: http://<%= super_secret_username %>:<%= super_secret_password %>@localhost:8080/hawkular/metrics/strings/raw/query
@@ -83,7 +83,7 @@ http_interactions:
       Pragma:
       - no-cache
       Date:
-      - Tue, 25 Apr 2017 07:44:58 GMT
+      - Tue, 25 Apr 2017 14:35:57 GMT
       Connection:
       - keep-alive
       Content-Type:
@@ -92,7 +92,7 @@ http_interactions:
       - '396'
     body:
       encoding: UTF-8
-      string: '[{"id":"inventory.<%= feed_uuid %>.mt.Platform_File Store_Total Space","data":[{"timestamp":1493106278546,"value":"H4sIAAAAAAAAAFWPT4vCQAzFv4rk3IPgrbdd/IO3hXYPnmSYxm4gTUrMiCL97s5QFfcU3kvej5c7kFxQXO3WuKXoyRDqO/htzBMGdKPYFlFBFzyU3Wg6ojnhOaupAury5Q8HP6kNxy0xLpoMxGOrHnjRjCGWuIShIP+bmrxXkv5JkqjDWyUhz4HvQ7tp8uncZZ1LtHO5PqS+MKIyY3RS2YujXQJDvVouq9cTu6/f3QYyMP4Rd4ZS8NO8Pu+lwyvUkpirj3c//ekB8Z4mnSUBAAA="}]}]'
+      string: '[{"id":"inventory.<%= feed_uuid %>.mt.Platform_File Store_Total Space","data":[{"timestamp":1493124041389,"value":"H4sIAAAAAAAAAFWPT4vCQAzFv4rk3IPgrbdd/IO3hXYPnmSYxm4gTUrMiCL97s5QFfcU3kvej5c7kFxQXO3WuKXoyRDqO/htzBMGdKPYFlFBFzyU3Wg6ojnhOaupAury5Q8HP6kNxy0xLpoMxGOrHnjRjCGWuIShIP+bmrxXkv5JkqjDWyUhz4HvQ7tp8uncZZ1LtHO5PqS+MKIyY3RS2YujXQJDvVouq9cTu6/f3QYyMP4Rd4ZS8NO8Pu+lwyvUkpirj3c//ekB8Z4mnSUBAAA="}]}]'
     http_version: 
-  recorded_at: Tue, 25 Apr 2017 07:44:58 GMT
+  recorded_at: Tue, 25 Apr 2017 14:35:57 GMT
 recorded_with: VCR 3.0.3

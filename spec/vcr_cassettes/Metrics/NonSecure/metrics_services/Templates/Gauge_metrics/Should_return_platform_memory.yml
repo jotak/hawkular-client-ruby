@@ -31,14 +31,14 @@ http_interactions:
       Content-Type:
       - application/json
       Content-Length:
-      - '153'
+      - '150'
       Date:
-      - Wed, 05 Apr 2017 08:18:50 GMT
+      - Tue, 25 Apr 2017 13:11:58 GMT
     body:
       encoding: UTF-8
-      string: '{"MetricsService":"STARTED","Implementation-Version":"0.26.0-SNAPSHOT","Built-From-Git-SHA1":"65cace494ecb1fe770989a9e57d140f1918ef0e9","Cassandra":"up"}'
+      string: '{"MetricsService":"STARTED","Implementation-Version":"0.26.0.Final","Built-From-Git-SHA1":"fe3ef3ccc36a0c85bcdbf3e96aae8d36a636f7f2","Cassandra":"up"}'
     http_version: 
-  recorded_at: Wed, 05 Apr 2017 08:18:50 GMT
+  recorded_at: Tue, 25 Apr 2017 13:11:58 GMT
 - request:
     method: get
     uri: http://jdoe:password@localhost:8080/<%= tenant %>/metrics/status
@@ -70,14 +70,14 @@ http_interactions:
       Content-Type:
       - application/json
       Content-Length:
-      - '153'
+      - '150'
       Date:
-      - Wed, 05 Apr 2017 08:18:50 GMT
+      - Tue, 25 Apr 2017 13:11:58 GMT
     body:
       encoding: UTF-8
-      string: '{"MetricsService":"STARTED","Implementation-Version":"0.26.0-SNAPSHOT","Built-From-Git-SHA1":"65cace494ecb1fe770989a9e57d140f1918ef0e9","Cassandra":"up"}'
+      string: '{"MetricsService":"STARTED","Implementation-Version":"0.26.0.Final","Built-From-Git-SHA1":"fe3ef3ccc36a0c85bcdbf3e96aae8d36a636f7f2","Cassandra":"up"}'
     http_version: 
-  recorded_at: Wed, 05 Apr 2017 08:18:50 GMT
+  recorded_at: Tue, 25 Apr 2017 13:11:58 GMT
 - request:
     method: get
     uri: http://jdoe:password@localhost:8080/<%= tenant %>/metrics/strings/tags/module:inventory,feed:*
@@ -111,21 +111,21 @@ http_interactions:
       Pragma:
       - no-cache
       Date:
-      - Wed, 05 Apr 2017 08:18:50 GMT
+      - Tue, 25 Apr 2017 13:11:58 GMT
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Content-Length:
-      - '72'
+      - '48'
     body:
       encoding: UTF-8
-      string: '{"feed":["03eca767-e48f-4f0b-9a8a-d8f46112c9a5"],"module":["inventory"]}'
+      string: '{"feed":["09c75a3764f4"],"module":["inventory"]}'
     http_version: 
-  recorded_at: Wed, 05 Apr 2017 08:18:50 GMT
+  recorded_at: Tue, 25 Apr 2017 13:11:58 GMT
 - request:
     method: get
-    uri: http://jdoe:password@localhost:8080/<%= tenant %>/metrics/gauges/MI~R~%5B03eca767-e48f-4f0b-9a8a-d8f46112c9a5%2Fplatform~%2FOPERATING_SYSTEM=03eca767-e48f-4f0b-9a8a-d8f46112c9a5_OperatingSystem%2FMEMORY=Memory%5D~MT~Platform_Memory_Total%20Memory/raw/
+    uri: http://jdoe:password@localhost:8080/<%= tenant %>/metrics/gauges/MI~R~%5B09c75a3764f4%2Fplatform~%2FOPERATING_SYSTEM=09c75a3764f4_OperatingSystem%2FMEMORY=Memory%5D~MT~Platform_Memory_Total%20Memory/raw/
     body:
       encoding: US-ASCII
       string: ''
@@ -156,16 +156,16 @@ http_interactions:
       Pragma:
       - no-cache
       Date:
-      - Wed, 05 Apr 2017 08:18:50 GMT
+      - Tue, 25 Apr 2017 13:11:58 GMT
       Connection:
       - keep-alive
       Content-Type:
       - application/json
       Content-Length:
-      - '751'
+      - '1551'
     body:
       encoding: UTF-8
-      string: '[{"timestamp":1491380326008,"value":1.62359296E10},{"timestamp":1491380266013,"value":1.62359296E10},{"timestamp":1491380206008,"value":1.62359296E10},{"timestamp":1491380145008,"value":1.62359296E10},{"timestamp":1491380084004,"value":1.62359296E10},{"timestamp":1491380024006,"value":1.62359296E10},{"timestamp":1491379964006,"value":1.62359296E10},{"timestamp":1491379904008,"value":1.62359296E10},{"timestamp":1491379844011,"value":1.62359296E10},{"timestamp":1491379784005,"value":1.62359296E10},{"timestamp":1491379723013,"value":1.62359296E10},{"timestamp":1491379663012,"value":1.62359296E10},{"timestamp":1491379603019,"value":1.62359296E10},{"timestamp":1491379542020,"value":1.62359296E10},{"timestamp":1491379481011,"value":1.62359296E10}]'
+      string: '[{"timestamp":1493125911003,"value":1.62359296E10},{"timestamp":1493125851009,"value":1.62359296E10},{"timestamp":1493125791009,"value":1.62359296E10},{"timestamp":1493125731008,"value":1.62359296E10},{"timestamp":1493125671010,"value":1.62359296E10},{"timestamp":1493125611011,"value":1.62359296E10},{"timestamp":1493125550009,"value":1.62359296E10},{"timestamp":1493125490010,"value":1.62359296E10},{"timestamp":1493125430009,"value":1.62359296E10},{"timestamp":1493125369012,"value":1.62359296E10},{"timestamp":1493125309013,"value":1.62359296E10},{"timestamp":1493125249005,"value":1.62359296E10},{"timestamp":1493125188016,"value":1.62359296E10},{"timestamp":1493125128012,"value":1.62359296E10},{"timestamp":1493125067010,"value":1.62359296E10},{"timestamp":1493125007003,"value":1.62359296E10},{"timestamp":1493124947013,"value":1.62359296E10},{"timestamp":1493124886012,"value":1.62359296E10},{"timestamp":1493124826011,"value":1.62359296E10},{"timestamp":1493124765008,"value":1.62359296E10},{"timestamp":1493124705043,"value":1.62359296E10},{"timestamp":1493124645014,"value":1.62359296E10},{"timestamp":1493124585012,"value":1.62359296E10},{"timestamp":1493124524015,"value":1.62359296E10},{"timestamp":1493124464012,"value":1.62359296E10},{"timestamp":1493124404014,"value":1.62359296E10},{"timestamp":1493124344011,"value":1.62359296E10},{"timestamp":1493124284017,"value":1.62359296E10},{"timestamp":1493124224018,"value":1.62359296E10},{"timestamp":1493124163014,"value":1.62359296E10},{"timestamp":1493124103023,"value":1.62359296E10}]'
     http_version: 
-  recorded_at: Wed, 05 Apr 2017 08:18:50 GMT
+  recorded_at: Tue, 25 Apr 2017 13:11:58 GMT
 recorded_with: VCR 3.0.3

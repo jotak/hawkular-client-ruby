@@ -3,7 +3,7 @@
     {
       "operation": "read",
       "type": "text",
-      "data": "WelcomeResponse={\"sessionId\":\"UM0mXQIplIX57L133el72F3OaX5xnfRJU3cCTbIc\"}"
+      "data": "WelcomeResponse={\"sessionId\":\"e3rI8_z4Ho5vbVPjbi8IQI7lSjFBMt17O1qVT69z\"}"
     },
     {
       "operation": "write",
@@ -12,12 +12,12 @@
     {
       "operation": "read",
       "type": "text",
-      "data": "GenericSuccessResponse={\"message\":\"The request has been forwarded to feed [<%= feed_id %>] (MessageId=ID:26cbc276-298b-11e7-8b20-49667d8025b6)\"}"
+      "data": "GenericSuccessResponse={\"message\":\"The request has been forwarded to feed [<%= feed_id %>] (MessageId=ID:910ff45a-29c4-11e7-9aef-a70638ce529f)\"}"
     },
     {
       "operation": "read",
       "type": "text",
-      "data": "AddDatasourceResponse={\"xaDatasource\":false,\"resourcePath\":\"/t;<%= tenant_id %>/f;<%= feed_id %>/r;Local~~\",\"destinationSessionId\":\"UM0mXQIplIX57L133el72F3OaX5xnfRJU3cCTbIc\",\"status\":\"ERROR\",\"message\":\"Could not perform [Add] on a [Datasource] given by inventory path [/t;<%= tenant_id %>/f;<%= feed_id %>/r;Local~~] requested on [2017-04-25T07:45Z]: java.lang.IllegalStateException: Command not allowed because the agent is immutable\"}"
+      "data": "AddDatasourceResponse={\"xaDatasource\":false,\"resourcePath\":\"/t;<%= tenant_id %>/f;<%= feed_id %>/r;Local~~\",\"destinationSessionId\":\"e3rI8_z4Ho5vbVPjbi8IQI7lSjFBMt17O1qVT69z\",\"status\":\"ERROR\",\"message\":\"Could not perform [Add] on a [Datasource] given by inventory path [/t;<%= tenant_id %>/f;<%= feed_id %>/r;Local~~] requested on [2017-04-25T14:36Z]: java.lang.IllegalStateException: Command not allowed because the agent is immutable\"}"
     }
   ]
 ]

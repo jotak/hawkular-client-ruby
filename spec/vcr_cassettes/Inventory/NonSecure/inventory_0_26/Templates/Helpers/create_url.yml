@@ -39,10 +39,10 @@ http_interactions:
       Content-Length:
       - '0'
       Date:
-      - Tue, 25 Apr 2017 07:44:54 GMT
+      - Tue, 25 Apr 2017 14:35:55 GMT
     body:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Tue, 25 Apr 2017 07:44:54 GMT
+  recorded_at: Tue, 25 Apr 2017 14:35:55 GMT
 recorded_with: VCR 3.0.3

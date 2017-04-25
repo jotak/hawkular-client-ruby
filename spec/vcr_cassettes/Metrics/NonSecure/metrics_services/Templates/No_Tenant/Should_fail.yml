@@ -29,20 +29,20 @@ http_interactions:
       Content-Type:
       - application/json
       Content-Length:
-      - '153'
+      - '150'
       Date:
-      - Wed, 05 Apr 2017 08:18:49 GMT
+      - Tue, 25 Apr 2017 13:11:57 GMT
     body:
       encoding: UTF-8
-      string: '{"MetricsService":"STARTED","Implementation-Version":"0.26.0-SNAPSHOT","Built-From-Git-SHA1":"65cace494ecb1fe770989a9e57d140f1918ef0e9","Cassandra":"up"}'
+      string: '{"MetricsService":"STARTED","Implementation-Version":"0.26.0.Final","Built-From-Git-SHA1":"fe3ef3ccc36a0c85bcdbf3e96aae8d36a636f7f2","Cassandra":"up"}'
     http_version: 
-  recorded_at: Wed, 05 Apr 2017 08:18:49 GMT
+  recorded_at: Tue, 25 Apr 2017 13:11:57 GMT
 - request:
     method: post
     uri: http://jdoe:password@localhost:8080/hawkular/metrics/counters/<%= id %>/raw
     body:
       encoding: UTF-8
-      string: '[{"value":4,"timestamp":1491380329953}]'
+      string: '[{"value":4,"timestamp":1493125917693}]'
     headers:
       Accept:
       - application/json
@@ -70,7 +70,7 @@ http_interactions:
       Pragma:
       - no-cache
       Date:
-      - Wed, 05 Apr 2017 08:18:49 GMT
+      - Tue, 25 Apr 2017 13:11:57 GMT
       Connection:
       - keep-alive
       Content-Type:
@@ -81,5 +81,5 @@ http_interactions:
       encoding: UTF-8
       string: '{"errorMsg":"Tenant is not specified. Use ''Hawkular-Tenant'' header."}'
     http_version: 
-  recorded_at: Wed, 05 Apr 2017 08:18:49 GMT
+  recorded_at: Tue, 25 Apr 2017 13:11:57 GMT
 recorded_with: VCR 3.0.3

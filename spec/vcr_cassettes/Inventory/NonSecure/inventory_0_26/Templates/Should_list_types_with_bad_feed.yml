@@ -35,10 +35,10 @@ http_interactions:
       Pragma:
       - no-cache
       Date:
-      - Tue, 25 Apr 2017 07:44:56 GMT
+      - Tue, 25 Apr 2017 14:35:57 GMT
     body:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Tue, 25 Apr 2017 07:44:56 GMT
+  recorded_at: Tue, 25 Apr 2017 14:35:57 GMT
 recorded_with: VCR 3.0.3
